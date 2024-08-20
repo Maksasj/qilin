@@ -4,7 +4,8 @@ using System.Diagnostics;
 
 namespace Qilin.Service.Controllers
 {
-    public class HomeController : Controller
+    [ApiController]
+    public class HomeController : ControllerBase
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -13,20 +14,11 @@ namespace Qilin.Service.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        [Route("Test")]
+        public async Task<IActionResult> Test()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return Ok();
         }
     }
 }
