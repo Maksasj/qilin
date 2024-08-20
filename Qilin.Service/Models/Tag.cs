@@ -2,7 +2,7 @@
 
 namespace Qilin.Service.Models
 {
-    public class TagModel
+    public class Tag
     {
         [Required]
         public Guid Id { get; set; }
