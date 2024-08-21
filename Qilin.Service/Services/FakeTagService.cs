@@ -6,32 +6,54 @@ namespace Qilin.Service.Services
 {
     public class FakeTagService : ITagService
     {
-        public async Task<Tag[]> GetTagsAsync()
+        private readonly ILogger<TagService> _logger;
+        private List<Tag> _tags;
+
+        public FakeTagService(ILogger<TagService> logger)
         {
-            var onePiece = new Tag
+            _logger = logger;
+
+            _tags.Add(new Tag
             {
                 Id = Guid.NewGuid(),
                 Title = "One Piece",
                 Description = "This is a test one piece tag"
-            };
+            });
 
-            var artWork = new Tag
+            _tags.Add(new Tag
             {
                 Id = Guid.NewGuid(),
                 Title = "Art work"
-            };
-
-            return new Tag[] { onePiece, artWork };
+            });
         }
 
-        public async Task<IActionResult> CreateTag(string tagTitle, string? tagDescription)
+        public async Task<Tag[]> GetTagsAsync()
         {
-            return new OkObjectResult(null);
+            return _tags.ToArray();
         }
 
-        public async Task<IActionResult> DeleteTag(Guid tagId)
+        public async Task<bool> CreateTag(string tagTitle, string? tagDescription)
         {
-            return new OkObjectResult(null);
+            _tags.Add(new Tag
+            {
+                Id = Guid.NewGuid(),
+                Title = tagTitle,
+                Description = tagDescription
+            });
+
+            return true;
+        }
+
+        public async Task<bool> DeleteTag(Guid tagId)
+        {
+            var tag = _tags.Find(tag => tag.Id.Equals(tagId));
+
+            if (tag == null)
+                return false;
+
+            _tags.Remove(tag);
+
+            return true;
         }
     }
 }

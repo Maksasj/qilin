@@ -6,7 +6,7 @@ namespace Qilin.Service.Services
     public interface ITagService
     {
         Task<Tag[]> GetTagsAsync();
-        Task<IActionResult> CreateTag(string tagTitle, string? tagDescription);
-        Task<IActionResult> DeleteTag(Guid tagId);
+        Task<bool> CreateTag(string tagTitle, string? tagDescription);
+        Task<bool> DeleteTag(Guid tagId);
     }
 }

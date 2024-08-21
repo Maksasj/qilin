@@ -28,14 +28,38 @@ namespace Qilin.Service.Controllers
         [Route("CreateTag")]
         public async Task<IActionResult> CreateTag(string tagTitle, string? tagDescription)
         {
-            return await _tagService.CreateTag(tagTitle, tagDescription);
+            if (string.IsNullOrWhiteSpace(tagTitle))
+            {
+                return BadRequest();
+            }
+
+            var successful = await _tagService.CreateTag(tagTitle, tagDescription);
+            
+            if (!successful)
+            {
+                return BadRequest("Could not delete tag");
+            }
+
+            return Ok();
         }
 
         [HttpDelete]
         [Route("DeleteTag")]
         public async Task<IActionResult> DeleteTag(Guid tagId)
         {
-            return await _tagService.DeleteTag(tagId);
+            if (tagId == Guid.Empty)
+            {
+                return BadRequest();
+            }
+
+            var successful = await _tagService.DeleteTag(tagId);
+
+            if (!successful)
+            {
+                return BadRequest("Could not delete tag");
+            }
+
+            return Ok();
         }
     }
 }

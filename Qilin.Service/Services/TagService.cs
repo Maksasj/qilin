@@ -20,22 +20,18 @@ namespace Qilin.Service.Services
             return _tagRepository.GetTags().ToArray();
         }
 
-        public async Task<IActionResult> CreateTag(string tagTitle, string? tagDescription)
+        public async Task<bool> CreateTag(string tagTitle, string? tagDescription)
         {
-            _tagRepository.AddTag(new Tag
+            return await _tagRepository.AddTag(new Tag
             {
                 Title = tagTitle,
                 Description = tagDescription
             });
-
-            return new OkObjectResult(null);
         }
 
-        public async Task<IActionResult> DeleteTag(Guid tagId)
+        public async Task<bool> DeleteTag(Guid tagId)
         {
-            _tagRepository.DeleteTag(tagId);
-
-            return new OkObjectResult(null);
+            return await _tagRepository.DeleteTag(tagId);
         }
     }
 }

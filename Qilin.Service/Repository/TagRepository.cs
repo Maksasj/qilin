@@ -26,7 +26,7 @@ namespace Qilin.Service.Repository
             _context.Tags.Add(tag);
             
             var saveResult = await _context.SaveChangesAsync();
-            return saveResult == 1;
+            return !(saveResult == 1);
         }
 
         public async Task<bool> DeleteTag(Guid tagId)
@@ -34,7 +34,7 @@ namespace Qilin.Service.Repository
             await _context.Tags.Where(tag => tag.Id.Equals(tagId)).ExecuteDeleteAsync();
 
             var saveResult = await _context.SaveChangesAsync();
-            return saveResult == 1;
+            return !(saveResult == 1);
         }
     }
 }
