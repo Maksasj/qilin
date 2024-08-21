@@ -5,6 +5,9 @@ namespace Qilin.Service.Repository
     public interface ITagRepository
     {
         IEnumerable<Tag> GetTags();
+        
         Task<bool> AddTag(Tag tag);
+
+        Task<bool> DeleteTag(Guid tagId);
     }
 }

@@ -24,8 +24,16 @@ namespace Qilin.Service.Repository
         public async Task<bool> AddTag(Tag tag)
         {
             _context.Tags.Add(tag);
+            
             var saveResult = await _context.SaveChangesAsync();
+            return saveResult == 1;
+        }
 
+        public async Task<bool> DeleteTag(Guid tagId)
+        {
+            await _context.Tags.Where(tag => tag.Id.Equals(tagId)).ExecuteDeleteAsync();
+
+            var saveResult = await _context.SaveChangesAsync();
             return saveResult == 1;
         }
     }

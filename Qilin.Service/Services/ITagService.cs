@@ -7,5 +7,6 @@ namespace Qilin.Service.Services
     {
         Task<Tag[]> GetTagsAsync();
         Task<IActionResult> CreateTag(string tagTitle, string? tagDescription);
+        Task<IActionResult> DeleteTag(Guid tagId);
     }
 }

@@ -28,5 +28,10 @@ namespace Qilin.Service.Services
         {
             return new OkObjectResult(null);
         }
+
+        public async Task<IActionResult> DeleteTag(Guid tagId)
+        {
+            return new OkObjectResult(null);
+        }
     }
 }

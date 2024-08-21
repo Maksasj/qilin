@@ -31,5 +31,11 @@ namespace Qilin.Service.Controllers
             return await _tagService.CreateTag(tagTitle, tagDescription);
         }
 
+        [HttpDelete]
+        [Route("DeleteTag")]
+        public async Task<IActionResult> DeleteTag(Guid tagId)
+        {
+            return await _tagService.DeleteTag(tagId);
+        }
     }
 }
