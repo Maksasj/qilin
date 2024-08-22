@@ -4,18 +4,20 @@ using System.ComponentModel.DataAnnotations;
 namespace Qilin.Service.Models
 {
     [PrimaryKey(nameof(Id))]
-    public class Tag
+    public class Entity
     {
         [Required]
         public Guid Id { get; set; }
 
         [Required]
-        public string Title { get; set; }
+        public string Type { get; set; }
 
-        public string? Description { get; set; }
+        public string Value { get; set; }
+
+        public string Hash { get; set; }
 
         public DateTimeOffset CreatedDate { get; set; }
-        
+
         public DateTimeOffset LastModificationDate { get; set; }
     }
 }
