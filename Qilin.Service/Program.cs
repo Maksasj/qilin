@@ -14,8 +14,9 @@ builder.Services.AddDbContext<QilinDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<ITagRepository, TagRepository>();
+builder.Services.AddScoped<IEntityRepository, EntityRepository>();
 
-builder.Services.AddTransient<ITagService, TagService>();
+builder.Services.AddTransient<IQilinService, QilinService>();
 // builder.Services.AddTransient<ITagService, FakeTagService>();
 
 var app = builder.Build();

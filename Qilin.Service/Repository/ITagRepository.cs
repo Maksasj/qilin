@@ -6,7 +6,7 @@ namespace Qilin.Service.Repository
     {
         IEnumerable<Tag> GetTags();
         
-        Task<bool> AddTag(Tag tag);
+        Task<bool> CreateTag(Tag tag);
 
         Task<bool> DeleteTag(Guid tagId);
     }

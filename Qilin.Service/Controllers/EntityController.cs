@@ -6,28 +6,29 @@ using Qilin.Service.Services;
 namespace Qilin.Service.Controllers
 {
     [ApiController]
-    public class TagsController : ControllerBase
+    public class EntityController : ControllerBase
     {
-        private readonly ITagService _tagService;        
-        private readonly ILogger<TagsController> _logger;
+        private readonly IQilinService _qilinService;        
+        private readonly ILogger<EntityController> _logger;
 
-        public TagsController(ILogger<TagsController> logger, ITagService tagService)
+        public EntityController(ILogger<EntityController> logger, IQilinService qilinService)
         {
             _logger = logger;
-            _tagService = tagService;
+            _qilinService = qilinService;
         }
 
         [HttpGet]
-        [Route("GetTags")]
-        public async Task<Tag[]> GetTags()
+        [Route("GetEntities")]
+        public async Task<Entity[]> GetEntities()
         {
-            return await _tagService.GetTagsAsync();
+            return await _qilinService.GetEntitiesAsync();
         }
 
         [HttpPost]
-        [Route("CreateTag")]
-        public async Task<IActionResult> CreateTag(string tagTitle, string? tagDescription)
+        [Route("CreateEntity")]
+        public async Task<IActionResult> CreateEntity()
         {
+            /*
             if (string.IsNullOrWhiteSpace(tagTitle))
             {
                 return BadRequest();
@@ -39,14 +40,16 @@ namespace Qilin.Service.Controllers
             {
                 return BadRequest("Could not delete tag");
             }
+            */
 
             return Ok();
         }
 
         [HttpDelete]
-        [Route("DeleteTag")]
-        public async Task<IActionResult> DeleteTag(Guid tagId)
+        [Route("DeleteEntity")]
+        public async Task<IActionResult> DeleteEntity(Guid entityId)
         {
+            /*
             if (tagId == Guid.Empty)
             {
                 return BadRequest();
@@ -58,6 +61,7 @@ namespace Qilin.Service.Controllers
             {
                 return BadRequest("Could not delete tag");
             }
+            */
 
             return Ok();
         }

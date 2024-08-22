@@ -4,12 +4,15 @@ using Qilin.Service.Models;
 
 namespace Qilin.Service.Services
 {
-    public class FakeTagService : ITagService
+    public class FakeTagService : IQilinService
     {
-        private readonly ILogger<TagService> _logger;
+        private readonly ILogger<QilinService> _logger;
+        
         private List<Tag> _tags;
 
-        public FakeTagService(ILogger<TagService> logger)
+        private List<Entity> _entities;
+
+        public FakeTagService(ILogger<QilinService> logger)
         {
             _logger = logger;
 
@@ -54,6 +57,11 @@ namespace Qilin.Service.Services
             _tags.Remove(tag);
 
             return true;
+        }
+
+        public async Task<Entity[]> GetEntitiesAsync()
+        {
+            return _entities.ToArray();
         }
     }
 }

@@ -5,33 +5,33 @@ using Qilin.Service.Models;
 
 namespace Qilin.Service.Repository
 {
-    public class TagRepository : ITagRepository
+    public class EntityRepository : IEntityRepository
     {
-        private readonly ILogger<TagRepository> _logger;
+        private readonly ILogger<EntityRepository> _logger;
         private readonly QilinDbContext _context;
 
-        public TagRepository(ILogger<TagRepository> logger, QilinDbContext context)
+        public EntityRepository(ILogger<EntityRepository> logger, QilinDbContext context)
         {
             _logger = logger;
             _context = context;
         }
 
-        public IEnumerable<Tag> GetTags()
+        public IEnumerable<Entity> GetEntities()
         {
-            return _context.Tags.ToList();
+            return _context.Entities.ToList();
         }
 
-        public async Task<bool> CreateTag(Tag tag)
+        public async Task<bool> CreateEntity(Entity entity)
         {
-            _context.Tags.Add(tag);
-            
+            _context.Entities.Add(entity);
+
             var saveResult = await _context.SaveChangesAsync();
             return !(saveResult == 1);
         }
 
-        public async Task<bool> DeleteTag(Guid tagId)
+        public async Task<bool> DeleteEntity(Guid tagId)
         {
-            await _context.Tags.Where(tag => tag.Id.Equals(tagId)).ExecuteDeleteAsync();
+            await _context.Entities.Where(entity => entity.Id.Equals(tagId)).ExecuteDeleteAsync();
 
             var saveResult = await _context.SaveChangesAsync();
             return !(saveResult == 1);

@@ -3,10 +3,14 @@ using Qilin.Service.Models;
 
 namespace Qilin.Service.Services
 {
-    public interface ITagService
+    public interface IQilinService
     {
         Task<Tag[]> GetTagsAsync();
+        
         Task<bool> CreateTag(string tagTitle, string? tagDescription);
+
         Task<bool> DeleteTag(Guid tagId);
+
+        Task<Entity[]> GetEntitiesAsync();
     }
 }
