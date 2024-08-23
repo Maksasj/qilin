@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Qilin.Service.Models;
 using System.Diagnostics;
+using Microsoft.VisualBasic;
 using Qilin.Service.Services;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Qilin.Service.Controllers
 {
@@ -26,7 +28,14 @@ namespace Qilin.Service.Controllers
 
         [HttpPost]
         [Route("CreateTag")]
-        public async Task<IActionResult> CreateTag(string tagTitle, string? tagDescription)
+        [SwaggerOperation(OperationId = "CreateTag", Summary = "Create a tag", Description = "Creates a new tag")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Successfully created a new tag")]
+        public async Task<IActionResult> CreateTag(
+            [SwaggerParameter(Description = "New tag master title", Required = true)]
+            string tagTitle,
+            [SwaggerParameter(Description = "New tag description", Required = false)]
+            string? tagDescription
+            )
         {
             if (string.IsNullOrWhiteSpace(tagTitle))
             {
