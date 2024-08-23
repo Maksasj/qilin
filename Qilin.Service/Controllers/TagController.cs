@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Qilin.Service.Models;
 using System.Diagnostics;
 using Microsoft.VisualBasic;
+using Qilin.Service.Common;
 using Qilin.Service.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -32,8 +33,10 @@ namespace Qilin.Service.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, "Successfully created a new tag")]
         public async Task<IActionResult> CreateTag(
             [SwaggerParameter(Description = "New tag master title", Required = true)]
+            [SwaggerParameterExample(Example = "One piece")]
             string tagTitle,
             [SwaggerParameter(Description = "New tag description", Required = false)]
+            [SwaggerParameterExample(Example = "My most loved anime")]
             string? tagDescription
             )
         {
@@ -46,7 +49,7 @@ namespace Qilin.Service.Controllers
             
             if (!successful)
             {
-                return BadRequest("Could not delete tag");
+                return BadRequest("Could not create tag");
             }
 
             return Ok();
@@ -54,7 +57,11 @@ namespace Qilin.Service.Controllers
 
         [HttpDelete]
         [Route("UpdateTag")]
-        public async Task<IActionResult> UpdateTag(Guid tagId, string tagTitle, string tagDescription)
+        public async Task<IActionResult> UpdateTag(
+            Guid tagId, 
+            string tagTitle, 
+            string tagDescription
+            )
         {
             /*
             if (string.IsNullOrWhiteSpace(tagTitle))

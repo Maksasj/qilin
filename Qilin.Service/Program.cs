@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Qilin.Service.Common;
 using Qilin.Service.Data;
 using Qilin.Service.Repository;
 using Qilin.Service.Services;
@@ -12,6 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
     options.EnableAnnotations();
+
+    options.ParameterFilter<SwaggerParameterExampleFilter>();
 });
 
 builder.Services.AddDbContext<QilinDbContext>(options =>
