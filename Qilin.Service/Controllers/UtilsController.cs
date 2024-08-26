@@ -16,6 +16,8 @@ namespace Qilin.Service.Controllers
         [Route("Health")]
         public async Task<IActionResult> Health()
         {
+            throw new NotImplementedException();
+
             return Ok();
         }
     }

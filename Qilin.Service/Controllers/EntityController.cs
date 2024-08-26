@@ -28,6 +28,8 @@ namespace Qilin.Service.Controllers
         [Route("CreateEntity")]
         public async Task<IActionResult> CreateEntity()
         {
+            throw new NotImplementedException();
+
             /*
             if (string.IsNullOrWhiteSpace(tagTitle))
             {
@@ -49,6 +51,8 @@ namespace Qilin.Service.Controllers
         [Route("DeleteEntity")]
         public async Task<IActionResult> DeleteEntity(Guid entityId)
         {
+            throw new NotImplementedException();
+
             /*
             if (tagId == Guid.Empty)
             {
