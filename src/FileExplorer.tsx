@@ -1,4 +1,5 @@
 import React from 'react';
+import { Badge } from './components/ui/badge';
 import './FileExplorer.css';
 
 // Sample data for files and folders
@@ -13,19 +14,25 @@ const filesAndFolders = [
   { name: 'vite.config.ts', type: 'file' },
   // Add more items as needed
 ];
+
+const EntityTile = ({ index, name }: { index: number, name: string }) => {
+    return (
+        <div key={index} className={`tile`}>
+            <div className="icon">📄</div>
+            <div className="file-name">{name}</div>
+            <Badge>📂 File</Badge>
+        </div>
+    )
+}
  
 const FileExplorer = () => {
   return (
     <div className="file-explorer">
       {filesAndFolders.map((item, index) => (
-        <div key={index} className={`tile ${item.type}`}>
-          {item.type === 'folder' ? (
-            <div className="icon folder-icon">📁</div>
-          ) : (
-            <div className="icon file-icon">📄</div>
-          )}
-          <div className="file-name">{item.name}</div>
-        </div>
+        <EntityTile 
+            index = {index} 
+            name = {item.name}
+            />
       ))}
     </div>
   );

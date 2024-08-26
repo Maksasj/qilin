@@ -1,47 +1,44 @@
 .file-explorer {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 16px;
-    padding: 16px;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+.tile {
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #f8f9fa;
+  cursor: pointer;
   
-  .tile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 16px;
-    text-align: center;
-    background-color: #f8f9fa;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .tile:hover {
-    background-color: #e2e6ea;
-  }
-  
-  .icon {
-    font-size: 40px;
-    margin-bottom: 8px;
-  }
-  
-  .file-name {
-    font-size: 14px;
-    word-wrap: break-word;
-    max-width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .folder-icon {
-    color: #f39c12;
-  }
-  
-  .file-icon {
-    color: #3498db;
-  }
+  transition: background-color 0.2s ease;
+}
+
+.tile:hover {
+  background-color: #e2e6ea;
+}
+
+.icon {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.file-name {
+  font-size: 14px;
+  word-wrap: break-word;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.folder-icon {
+  color: #f39c12;
+}
+
+.file-icon {
+  color: #3498db;
+}
   
