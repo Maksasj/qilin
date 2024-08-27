@@ -1,28 +1,70 @@
 import { Button } from "@/components/ui/button"
-import { TableDemo } from "./demo_table"
-import FileExplorer from "./FileExplorer"
-import { Pagination } from "./components/ui/pagination"
+import FileExplorer from "./file-explorer"
 import { PaginationDemo } from "./Pagination"
-import { NueWindow } from "./NueWindow"
 import { Input } from "./components/ui/input"
 import { SheetDemo } from "./SheetDemo"
 import { MenubarDemo } from "./MenubarDemo"
 import { SonnerDemo } from "./SonnerDemo"
 import { Toaster } from "sonner"
+import { ThemeProvider } from "./components/theme-provider"
+import { ModeToggle } from "./components/mode-toggle"
+import { NueSide } from "./nue-side"
+import { NueTopBar } from "./nue-top-bar"
+
+import { NueContent } from "./nue-content"
+import './nue-main.css';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./components/ui/resizable"
+import { BreadcrumbDemo } from "./breadcrumb"
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "./components/ui/breadcrumb"
+import { Slash } from "lucide-react"
+import { Separator } from "./components/ui/separator"
 
 export default function Home() {
   return (
-    <NueWindow> 
-      <div>
-      <MenubarDemo />
-        <Input type="text" placeholder="Email" />
-        <Button>Search</Button>
-        <FileExplorer />
-        <PaginationDemo />
-        <SheetDemo />
-      </div>
-      <SonnerDemo />
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+ 
+
+      <NueTopBar>
+        <div className="nue-logo">
+          🐏 nue
+        </div>
+        <div className="nue-search">
+          <Input type="text" placeholder="Type a tag or search by multiple..." />
+          <SonnerDemo />
+        </div>
+        <div className="nue-right">
+          <ModeToggle />
+        </div>
+      </NueTopBar>
+      <Separator/>
+
+      <ResizablePanelGroup direction="horizontal" className="max-w-md rounded-lg border md:min-w-[450px]">
+        <ResizablePanel defaultSize={10}>
+          <NueSide />
+        </ResizablePanel>
+        <ResizableHandle />
+        <ResizablePanel defaultSize={50}>
+          <NueContent> 
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/components">Components</BreadcrumbLink>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+
+              <FileExplorer />
+              <PaginationDemo />
+          </NueContent>
+        </ResizablePanel>
+      </ResizablePanelGroup>
+      
       <Toaster />
-    </NueWindow>
+  </ThemeProvider>
+    
   )
 }

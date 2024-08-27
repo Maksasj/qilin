@@ -1,0 +1,56 @@
+.nue-logo {
+    font-size: 2em;
+    word-wrap: break-word;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nue-search {
+    margin: 0 auto;
+    width: 35em;
+    display: flex;
+}
+
+.nue-right {
+    float: right
+}
+
+.nue-h4 {
+    font-size: 2em;
+    word-wrap: break-word;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nue-top {
+    margin: 1em;
+    border-radius: 8px;
+    display: flex
+}
+
+.nue-tag {
+    color: black;
+    font-weight: bold;
+
+    background-color: tomato;
+    border-radius: 15px;
+    width: fit-content;
+    padding: 0em 1em 0em 1em;
+
+    display: flex;
+    justify-content: center;
+}
+
+.nue-side {
+    margin: 1em;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.nue-content {
+    margin: 2em;
+}

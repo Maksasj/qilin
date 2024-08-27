@@ -1,23 +1,33 @@
 .file-explorer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 16px;
-  padding: 16px;
+  gap: 2.5em;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  padding-right: 1.5em;
 }
 
 .tile {
   flex-direction: column;
-  border: 1px solid #ccc;
+
+  border: 1px solid;
   border-radius: 8px;
+  border-color: hsl(var(--muted));
+
+  background-color: hsl(var(--background));
+
   padding: 16px;
-  background-color: #f8f9fa;
   cursor: pointer;
-  
   transition: background-color 0.2s ease;
+
+  text-align: center;
+
+  width: 12em;
+  height: 12em;
 }
 
 .tile:hover {
-  background-color: #e2e6ea;
+  background-color: hsl(var(--muted));;
 }
 
 .icon {
@@ -34,11 +44,4 @@
   text-overflow: ellipsis;
 }
 
-.folder-icon {
-  color: #f39c12;
-}
-
-.file-icon {
-  color: #3498db;
-}
   
