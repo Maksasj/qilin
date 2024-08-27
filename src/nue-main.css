@@ -1,5 +1,6 @@
 .nue-logo {
     font-size: 2em;
+    font-weight: bold;
     word-wrap: break-word;
     max-width: 100%;
     white-space: nowrap;
@@ -45,10 +46,15 @@
     justify-content: center;
 }
 
+.nue-search-input {
+    margin-right: 1em;
+}
+
 .nue-side {
     margin: 1em;
     border-radius: 8px;
     padding: 16px;
+    height: 100%;
 }
 
 .nue-content {

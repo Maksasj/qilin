@@ -16,8 +16,10 @@ import './nue-main.css';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./components/ui/resizable"
 import { BreadcrumbDemo } from "./breadcrumb"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "./components/ui/breadcrumb"
-import { Slash } from "lucide-react"
+import { Pin, Slash } from "lucide-react"
 import { Separator } from "./components/ui/separator"
+
+// <SonnerDemo />
 
 export default function Home() {
   return (
@@ -29,8 +31,8 @@ export default function Home() {
           🐏 nue
         </div>
         <div className="nue-search">
-          <Input type="text" placeholder="Type a tag or search by multiple..." />
-          <SonnerDemo />
+          <Input className="nue-search-input" type="text" placeholder="Type a tag or search by multiple..." />
+          <Button variant="outline">Search</Button>
         </div>
         <div className="nue-right">
           <ModeToggle />
@@ -52,14 +54,17 @@ export default function Home() {
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbLink href="/components">Components</BreadcrumbLink>
+                  <BreadcrumbLink href="/components">Entities</BreadcrumbLink>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
-
-              <FileExplorer />
-              <PaginationDemo />
+            <FileExplorer />
+            <PaginationDemo />
           </NueContent>
+        </ResizablePanel>
+        <ResizableHandle />
+
+        <ResizablePanel defaultSize={10}>
         </ResizablePanel>
       </ResizablePanelGroup>
       

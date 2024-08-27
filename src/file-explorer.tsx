@@ -1,17 +1,7 @@
 import React from 'react';
+import EntityTile from './entity-tile';
 import './file-explorer.css';
-import { Tag } from './tag';
 
-const EntityTile = ({ index, name }: { index: number, name: string }) => {
-    return (
-        <div key={index} className={`tile`}>
-            <div className="icon">📄</div>
-            <div className="file-name">{name}</div>
-            <Tag label={"📂 File"} />
-        </div>
-    )
-}
- 
 function makeid(length: number) {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

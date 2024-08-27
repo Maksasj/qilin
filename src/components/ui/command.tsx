@@ -60,7 +60,7 @@ const CommandList = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <CommandPrimitive.List
     ref={ref}
-    className={cn("tailwind.config.jsmax-h-[300px] tailwind.config.jsoverflow-y-auto tailwind.config.jsoverflow-x-hidden", className)}
+    className={cn("tailwind.config.jsoverflow-y-auto tailwind.config.jsoverflow-x-hidden", className)}
     {...props}
   />
 ))
