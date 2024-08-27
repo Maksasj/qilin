@@ -6,6 +6,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-left: 0.5em;
 }
 
 .nue-search {
@@ -15,7 +16,8 @@
 }
 
 .nue-right {
-    float: right
+    float: right;
+    margin-right: 0.5em
 }
 
 .nue-h4 {
@@ -30,7 +32,9 @@
 .nue-top {
     margin: 1em;
     border-radius: 8px;
-    display: flex
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nue-tag {
