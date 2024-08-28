@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Qilin.Service.Common;
 using Qilin.Service.Data;
 using Qilin.Service.Repository;
 using Qilin.Service.Services;
@@ -20,7 +21,13 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.EnableAnnotations();
+
+    options.ParameterFilter<SwaggerParameterExampleFilter>();
+});
 
 builder.Services.AddDbContext<QilinDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
