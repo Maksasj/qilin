@@ -1,25 +1,18 @@
 import { Button } from "@/components/ui/button"
-import EntitiesExplorer from "./file-explorer"
+import EntitiesExplorer from "./components/nue-entity-explorer"
 import { PaginationDemo } from "./Pagination"
 import { Input } from "./components/ui/input"
-import { SheetDemo } from "./SheetDemo"
-import { MenubarDemo } from "./MenubarDemo"
-import { SonnerDemo } from "./SonnerDemo"
 import { Toaster } from "sonner"
 import { ThemeProvider } from "./components/theme-provider"
 import { ModeToggle } from "./components/mode-toggle"
-import { NueSide } from "./nue-side"
-import { NueTopBar } from "./nue-top-bar"
+import { NueSide } from "./components/nue-side"
+import { NueTopBar } from "./components/nue-top-bar"
 
-import { NueContent } from "./nue-content"
-import './nue-main.css';
+import { NueContent } from "./components/nue-content"
+import './assets/nue.css';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./components/ui/resizable"
-import { BreadcrumbDemo } from "./breadcrumb"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "./components/ui/breadcrumb"
-import { Pin, Slash } from "lucide-react"
 import { Separator } from "./components/ui/separator"
-
-// <SonnerDemo />
 
 export default function Home() {
   return (

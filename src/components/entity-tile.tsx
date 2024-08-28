@@ -1,4 +1,4 @@
-import { Entity } from "./models/entity";
+import { Entity } from "../models/entity";
 import { Tag } from "./tag"
 
 const EntityTile = ({ entity }: { entity: Entity }) => {
@@ -9,7 +9,7 @@ const EntityTile = ({ entity }: { entity: Entity }) => {
                 <div className="nue-tile-entity-type">{entity.type}</div>
             </div>
             <div className="nue-tile-preview-container">
-                <img className="nue-tile-preview-image" src='src/cute-anime-uptxxcxl4h2zoe9r.jpg'></img>
+                <img className="nue-tile-preview-image" src='src/assets/cute-anime-uptxxcxl4h2zoe9r.jpg'></img>
             </div>
         </div>
     )

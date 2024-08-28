@@ -3,9 +3,9 @@ import * as React from 'react';
 import axios from 'axios';
 
 import EntityTile from './entity-tile';
-import './file-explorer.css';
-import { EntitiesPageResponseModel } from './models/entities-page-response-model';
-import { Entity } from './models/entity';
+import './nue-entity-explorer.css';
+import { EntitiesPageResponseModel } from '../models/entities-page-response-model';
+import { Entity } from '../models/entity';
 import { Star } from 'lucide-react';
 
 function makeid(length: number) {
@@ -54,7 +54,7 @@ const EntitiesExplorer = () => {
     if (isLoading || state === null) return <p>Loading...</p>
 
     return (
-        <div className="file-explorer">
+        <div className="nue-entity-explorer">
             {state.entities.map(entity => (
                 <EntityTile entity = {entity} />
             ))}
