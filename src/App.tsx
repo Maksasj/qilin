@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import FileExplorer from "./file-explorer"
+import EntitiesExplorer from "./file-explorer"
 import { PaginationDemo } from "./Pagination"
 import { Input } from "./components/ui/input"
 import { SheetDemo } from "./SheetDemo"
@@ -58,7 +58,7 @@ export default function Home() {
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
-            <FileExplorer />
+            <EntitiesExplorer />
             <PaginationDemo />
           </NueContent>
         </ResizablePanel>

@@ -1,6 +1,12 @@
-import React from 'react';
+import * as React from 'react';
+
+import axios from 'axios';
+
 import EntityTile from './entity-tile';
 import './file-explorer.css';
+import { EntitiesPageResponseModel } from './models/entities-page-response-model';
+import { Entity } from './models/entity';
+import { Star } from 'lucide-react';
 
 function makeid(length: number) {
     let result = '';
@@ -14,23 +20,46 @@ function makeid(length: number) {
     return result;
 }
 
-const FileExplorer = () => {
-    let filesAndFolders: any[] = [];
+function getEntities(): Promise<EntitiesPageResponseModel> {
+    const request: RequestInfo = new Request('https://localhost:7283/GetEntities?pageIndex=0&itemsPerPage=100', {
+        method: 'GET',
+    })
+      
+    return fetch(request)
+        .then(res => res.json())
+        .then(res => {
+            return res as EntitiesPageResponseModel
+    });
+}
 
-    for (let i = 0; i < 20; i++) {
-        filesAndFolders[i] = { name: makeid(100), type: 'file' };
-    }
+const EntitiesExplorer = () => {
+    const [state, setState] = React.useState<EntitiesPageResponseModel | null>(null);
+    const [isLoading, setIsLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        getAllInformation()
+    }, []);
+
+    const getAllInformation = async () => {
+        setIsLoading(true);
+
+        await axios.get("https://localhost:7283/GetEntities?pageIndex=0&itemsPerPage=100").then(response => {
+            setIsLoading(false);
+            
+            const allData: EntitiesPageResponseModel = response.data;
+            setState(allData);
+        })
+    };
+
+    if (isLoading || state === null) return <p>Loading...</p>
 
     return (
         <div className="file-explorer">
-        {filesAndFolders.map((item, index) => (
-            <EntityTile 
-                index = {index} 
-                name = {item.name}
-                />
-        ))}
+            {state.entities.map(entity => (
+                <EntityTile entity = {entity} />
+            ))}
         </div>
-    );
+    )
 };
 
-export default FileExplorer;
+export default EntitiesExplorer;
