@@ -4,7 +4,7 @@ namespace Qilin.Service.Repository
 {
     public interface IEntityRepository
     {
-        Task<bool> CreateEntity(Entity entity);
+        Task<bool> CreateEntityAsync(Entity entity);
 
         Task<bool> DeleteEntity(Guid tagId);
 

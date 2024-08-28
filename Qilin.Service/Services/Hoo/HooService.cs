@@ -25,14 +25,11 @@ namespace Qilin.Service.Services.Hoo
         {
             await foreach (var file in _hooClient.GetFilesAsync())
             {
-                _entityRepository.CreateEntity(new Entity
+                await _entityRepository.CreateEntityAsync(new Entity
                 {
                     Id = file.Id,
                     Type = "HooFile",
-                    Value = "Value",
-                    Hash = "Hash",
-                    CreatedDate = DateTimeOffset.Now,
-                    LastModificationDate = DateTimeOffset.Now
+                    Name = file.Name,
                 });
             }
         }

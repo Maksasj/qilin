@@ -21,7 +21,7 @@ namespace Qilin.Service.Repository
             return _context.Entities.ToList();
         }
 
-        public async Task<bool> CreateEntity(Entity entity)
+        public async Task<bool> CreateEntityAsync(Entity entity)
         {
             _context.Entities.Add(entity);
 
