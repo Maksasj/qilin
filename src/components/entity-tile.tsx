@@ -1,5 +1,4 @@
 import { Entity } from "../models/entity";
-import { Tag } from "./tag"
 
 const EntityTile = ({ entity }: { entity: Entity }) => {
     return (
