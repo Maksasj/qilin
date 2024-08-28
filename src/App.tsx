@@ -13,11 +13,13 @@ import './assets/nue.css';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./components/ui/resizable"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "./components/ui/breadcrumb"
 import { Separator } from "./components/ui/separator"
+import EntityInformation from "./components/entity-information"
+
+// <DialogDemo /> could be used for tag creation/Adding web file
 
 export default function Home() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
- 
 
       <NueTopBar>
         <div className="nue-logo">
@@ -58,6 +60,7 @@ export default function Home() {
         <ResizableHandle />
 
         <ResizablePanel defaultSize={10}>
+          <EntityInformation />
         </ResizablePanel>
       </ResizablePanelGroup>
       

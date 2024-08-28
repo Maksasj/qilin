@@ -1,6 +1,6 @@
-const Tag = ({ label }: { label: string }) => {
+const Tag = ({ color, label }: { color: string, label: string }) => {
   return (
-    <div className="nue-tag">
+    <div style={{backgroundColor: color}} className="nue-tag">
       {label}
     </div>
   );
