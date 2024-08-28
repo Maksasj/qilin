@@ -4,6 +4,7 @@ using Microsoft.VisualBasic;
 using Qilin.Service.Common;
 using Qilin.Service.Services;
 using Qilin.Service.Models.Response;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Qilin.Service.Controllers
 {
