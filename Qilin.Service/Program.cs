@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Qilin.Service.Data;
 using Qilin.Service.Repository;
 using Qilin.Service.Services;
+using Qilin.Service.Services.Hoo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +17,8 @@ builder.Services.AddDbContext<QilinDbContext>(options =>
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IEntityRepository, EntityRepository>();
 
+builder.Services.AddTransient<IHooService, HooService>();
 builder.Services.AddTransient<IQilinService, QilinService>();
-// builder.Services.AddTransient<ITagService, FakeTagService>();
 
 var app = builder.Build();
 

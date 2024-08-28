@@ -18,9 +18,9 @@ namespace Qilin.Service.Services
             _entityRepository = entityRepository;
         }
 
-        public async Task<Tag[]> GetTagsAsync()
+        public async Task<IEnumerable<Tag>> GetTagsAsync()
         {
-            return _tagRepository.GetTags().ToArray();
+            return _tagRepository.GetTags();
         }
 
         public async Task<bool> CreateTag(string tagTitle, string? tagDescription)
@@ -37,9 +37,9 @@ namespace Qilin.Service.Services
             return await _tagRepository.DeleteTag(tagId);
         }
 
-        public async Task<Entity[]> GetEntitiesAsync()
+        public async Task<IEnumerable<Entity>> GetEntitiesAsync()
         {
-            return _entityRepository.GetEntities().ToArray();
+            return _entityRepository.GetEntities();
         }
     }
 }

@@ -5,12 +5,12 @@ namespace Qilin.Service.Services
 {
     public interface IQilinService
     {
-        Task<Tag[]> GetTagsAsync();
-        
+        Task<IEnumerable<Tag>> GetTagsAsync();
+
+        Task<IEnumerable<Entity>> GetEntitiesAsync();
+
         Task<bool> CreateTag(string tagTitle, string? tagDescription);
 
         Task<bool> DeleteTag(Guid tagId);
-
-        Task<Entity[]> GetEntitiesAsync();
     }
 }

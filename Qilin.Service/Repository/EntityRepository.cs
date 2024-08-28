@@ -36,5 +36,14 @@ namespace Qilin.Service.Repository
             var saveResult = await _context.SaveChangesAsync();
             return !(saveResult == 1);
         }
+
+        public async Task<bool> DeleteAllEntitiesAsync()
+        {
+            _context.Entities.RemoveRange(_context.Entities);
+
+            var saveResult = await _context.SaveChangesAsync();
+
+            return !(saveResult == 1);
+        }
     }
 }

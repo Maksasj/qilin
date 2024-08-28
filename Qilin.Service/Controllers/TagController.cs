@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Qilin.Service.Models;
 using System.Diagnostics;
 using Qilin.Service.Services;
+using Qilin.Service.Models.Response;
 
 namespace Qilin.Service.Controllers
 {
@@ -19,9 +19,19 @@ namespace Qilin.Service.Controllers
 
         [HttpGet]
         [Route("GetTags")]
-        public async Task<Tag[]> GetTags()
+        public async Task<TagsPageResponseModel> GetTags(int pageIndex = 0, int itemsPerPage = 100)
         {
-            return await _qilinService.GetTagsAsync();
+            var tags = (await _qilinService.GetTagsAsync())
+                .Skip(pageIndex * itemsPerPage)
+                .Take(itemsPerPage)
+                .ToArray();
+            
+            return new TagsPageResponseModel
+            {
+                PageIndex = pageIndex,
+                ItemCount = tags.Length,
+                Tags = tags,
+            };
         }
 
         [HttpPost]
