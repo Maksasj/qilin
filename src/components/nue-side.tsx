@@ -5,7 +5,6 @@ import {
   LucideTag,
   Plus,
   Settings,
-  Smile,
   User,
 } from "lucide-react"
 

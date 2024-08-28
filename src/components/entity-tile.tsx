@@ -4,7 +4,7 @@ const EntityTile = ({ entity }: { entity: Entity }) => {
     return (
         <div className={`nue-tile-base`}>
             <div className="nue-tile-header">
-                <div className="nue-tile-entity-name">{entity.id}</div>
+                <div className="nue-tile-entity-name">{entity.name}</div>
                 <div className="nue-tile-entity-type">{entity.type}</div>
             </div>
             <div className="nue-tile-preview-container">
