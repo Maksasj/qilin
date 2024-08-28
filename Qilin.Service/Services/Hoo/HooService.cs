@@ -25,6 +25,9 @@ namespace Qilin.Service.Services.Hoo
         {
             await foreach (var file in _hooClient.GetFilesAsync())
             {
+                if (_entityRepository.HasEntity(file.Id))
+                    return;
+
                 await _entityRepository.CreateEntityAsync(new Entity
                 {
                     Id = file.Id,

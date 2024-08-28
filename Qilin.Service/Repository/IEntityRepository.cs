@@ -6,7 +6,9 @@ namespace Qilin.Service.Repository
     {
         Task<bool> CreateEntityAsync(Entity entity);
 
-        Task<bool> DeleteEntity(Guid tagId);
+        bool HasEntity(Guid entityId);
+
+        Task<bool> DeleteEntity(Guid entityId);
 
         IEnumerable<Entity> GetEntities();
 

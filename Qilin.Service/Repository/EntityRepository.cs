@@ -29,6 +29,11 @@ namespace Qilin.Service.Repository
             return !(saveResult == 1);
         }
 
+        public bool HasEntity(Guid entityId)
+        {
+            return _context.Entities.Where(entity => entity.Id.Equals(entityId)).Any();
+        }
+
         public async Task<bool> DeleteEntity(Guid tagId)
         {
             await _context.Entities.Where(entity => entity.Id.Equals(tagId)).ExecuteDeleteAsync();
