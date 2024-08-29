@@ -14,8 +14,12 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./componen
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "./components/ui/breadcrumb"
 import { Separator } from "./components/ui/separator"
 import EntityInformation from "./components/entity-information"
+import React from "react"
+import TagExplorer from "./components/nue-tag-explorer"
 
 export default function Home() {
+  const [browser, setBrowser] = React.useState<boolean>(true);
+
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
 
@@ -35,7 +39,7 @@ export default function Home() {
 
       <ResizablePanelGroup direction="horizontal" className="max-w-md rounded-lg border md:min-w-[450px]">
         <ResizablePanel defaultSize={10}>
-          <NueSide />
+          <NueSide setBrowser={setBrowser} />
         </ResizablePanel>
         <ResizableHandle />
         <ResizablePanel defaultSize={50}>
@@ -51,7 +55,13 @@ export default function Home() {
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
-            <EntitiesExplorer />
+            
+            {browser ? (
+              <EntitiesExplorer />
+            ) : (
+              <TagExplorer />
+            )}
+
             <PaginationDemo />
           </NueContent>
         </ResizablePanel>

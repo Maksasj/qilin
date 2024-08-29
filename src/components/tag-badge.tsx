@@ -1,4 +1,4 @@
-const Tag = ({ color, label }: { color: string, label: string }) => {
+const TagBadge = ({ color, label }: { color: string, label: string }) => {
   return (
     <div style={{backgroundColor: color}} className="nue-tag">
       {label}
@@ -6,5 +6,5 @@ const Tag = ({ color, label }: { color: string, label: string }) => {
   );
 };
 
-export default Tag;
+export default TagBadge;
   

@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "./ui/textarea"
+import axios from "axios"
 
 interface Props {
   open: boolean
@@ -46,7 +47,19 @@ export function CreateTagWindow(props: Props) {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Create Tag</Button>
+          <Button onClick={async () => {
+              var formData = new FormData();
+
+              formData.append('tagTitle', 'New tag');
+              formData.append('tagDescription', 'Cool description');
+
+              await axios({
+                method: "post",
+                url: "https://localhost:7283/CreateTag",
+                data: formData,
+                headers: { "Content-Type": "multipart/form-data" },
+              })
+          }}>Create Tag</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

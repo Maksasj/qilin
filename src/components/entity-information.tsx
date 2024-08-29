@@ -1,7 +1,4 @@
-import { Entity } from "@/models/entity";
-import { useContext } from "react";
-import { Button } from "./ui/button";
-import Tag from "./tag";
+import TagBadge from "./tag-badge";
 
 const EntityInformation = () => {
     return (
@@ -14,14 +11,14 @@ const EntityInformation = () => {
                 <div className="nue-tile-entity-type">Web File</div>
 
                 <div className="nue-tile-selected-entity-tag-container">
-                <Tag color={"#FFDEAD"} label={"📁 File"} />
-                <Tag color={"tomato"} label={"Some tag"} />
-                <Tag color={"blue"} label={"One piece"} />
-                <Tag color={"#6495ED"} label={"A"} />
-                <Tag color={"#FF7F50"} label={"Web file"} />
-                <Tag color={"#FF69B4"} label={"❤️ Cute"} />
-                <Tag color={"#F0E68C"} label={"🎨 Art work"} />
-                <Tag color={"#20B2AA"} label={"nice"} />
+                <TagBadge color={"#FFDEAD"} label={"📁 File"} />
+                <TagBadge color={"tomato"} label={"Some tag"} />
+                <TagBadge color={"blue"} label={"One piece"} />
+                <TagBadge color={"#6495ED"} label={"A"} />
+                <TagBadge color={"#FF7F50"} label={"Web file"} />
+                <TagBadge color={"#FF69B4"} label={"❤️ Cute"} />
+                <TagBadge color={"#F0E68C"} label={"🎨 Art work"} />
+                <TagBadge color={"#20B2AA"} label={"nice"} />
                 </div>
             </div>
         </div>

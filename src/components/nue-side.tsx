@@ -23,7 +23,11 @@ import { CreateTagWindow } from "@/components/create-tag-window";
 import React from "react";
 import { AddWebFileWindow } from "./add-web-file-window";
 
-export function NueSide() {
+interface Props {
+  setBrowser: (arg: boolean) => void
+}
+
+export function NueSide(props: Props) {
   const [openCreateTagWindow, setCreateTagWindow] = React.useState<boolean>(false);
   const [openAddWebFileWindow, setAddWebFileWindow] = React.useState<boolean>(false);
 
@@ -47,11 +51,11 @@ export function NueSide() {
           </CommandGroup>
           <CommandSeparator />
           <CommandGroup heading="Explore">
-            <CommandItem>
+            <CommandItem onSelect={() => {props.setBrowser(true)}}>
               <File className="mr-2 h-4 w-4" />
               <span>Entities Explorer</span>
             </CommandItem>
-            <CommandItem>
+            <CommandItem onSelect={() => {props.setBrowser(false)}}>
               <LucideTag className="mr-2 h-4 w-4" />
               <span>Tag Explorer</span>
             </CommandItem>
