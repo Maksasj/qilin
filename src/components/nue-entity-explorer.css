@@ -50,7 +50,7 @@
 }
 
 .nue-tile-base:hover {
-  background-color: hsl(var(--muted));;
+  background-color: hsl(var(--muted));
 }
 
 .nue-tile-preview-container {
@@ -115,4 +115,9 @@
 
   display: flex;
   justify-content: center;
+}
+
+.nue-create-tag-window-textarea {
+  background-color: hsl(var(--background)) !important; 
+  border-color: hsl(var(--muted)) !important;   
 }

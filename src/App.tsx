@@ -15,8 +15,6 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbS
 import { Separator } from "./components/ui/separator"
 import EntityInformation from "./components/entity-information"
 
-// <DialogDemo /> could be used for tag creation/Adding web file
-
 export default function Home() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
