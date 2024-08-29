@@ -16,12 +16,7 @@ namespace Qilin.Service.Repository
             _context = context;
         }
 
-        public IEnumerable<Tag> GetTags()
-        {
-            return _context.Tags.ToList();
-        }
-
-        public async Task<bool> CreateTag(Tag tag)
+        public async Task<bool> CreateTagAsync(Tag tag)
         {
             _context.Tags.Add(tag);
             
@@ -29,9 +24,45 @@ namespace Qilin.Service.Repository
             return !(saveResult == 1);
         }
 
-        public async Task<bool> DeleteTag(Guid tagId)
+        public async Task<Tag> GetTagAsync(Guid tagId)
         {
-            await _context.Tags.Where(tag => tag.Id.Equals(tagId)).ExecuteDeleteAsync();
+            var query = _context.Tags.Where(tag => tag.Id.Equals(tagId));
+
+            if (!query.Any())
+                return null;
+
+            return query.First();
+        }
+
+        public async Task<bool> DeleteTagAsync(Guid tagId)
+        {
+            var tag = await GetTagAsync(tagId);
+
+            if (tag == null)
+                return false;
+
+            _context.Tags.RemoveRange(tag);
+
+            var saveResult = await _context.SaveChangesAsync();
+
+            return !(saveResult == 1);
+        }
+
+        public bool HasTag(Guid tagId)
+        {
+            var query = _context.Tags.Where(tag => tag.Id.Equals(tagId));
+
+            return query.Any();
+        }
+
+        public IEnumerable<Tag> GetTags()
+        {
+            return _context.Tags;
+        }
+
+        public async Task<bool> DeleteTagsAsync(IEnumerable<Tag> tags)
+        {
+            _context.Tags.RemoveRange(tags);
 
             var saveResult = await _context.SaveChangesAsync();
             return !(saveResult == 1);

@@ -39,7 +39,7 @@ namespace Qilin.Service.Services.Hoo
 
         public async Task ClearCacheAsync()
         {
-            await _entityRepository.DeleteAllEntitiesAsync();
+            await _entityRepository.DeleteEntitiesAsync(_entityRepository.GetEntities());
         }
     }
 }

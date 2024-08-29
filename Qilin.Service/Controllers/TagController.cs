@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Microsoft.VisualBasic;
 using Qilin.Service.Common;
+using Qilin.Service.Common.Swagger;
 using Qilin.Service.Services;
 using Qilin.Service.Models.Response;
 using Swashbuckle.AspNetCore.Annotations;
@@ -65,7 +66,7 @@ namespace Qilin.Service.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpPatch]
         [Route("UpdateTag")]
         public async Task<IActionResult> UpdateTag(
             Guid tagId, 

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Qilin.Service.Common;
+using Qilin.Service.Common.Swagger;
 using Qilin.Service.Data;
 using Qilin.Service.Repository;
 using Qilin.Service.Services;

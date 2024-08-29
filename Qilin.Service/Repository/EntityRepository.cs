@@ -16,38 +16,55 @@ namespace Qilin.Service.Repository
             _context = context;
         }
 
-        public IEnumerable<Entity> GetEntities()
+        public async Task<bool> CreateEntityAsync(Entity Entity)
         {
-            return _context.Entities.ToList();
-        }
-
-        public async Task<bool> CreateEntityAsync(Entity entity)
-        {
-            _context.Entities.Add(entity);
+            _context.Entities.Add(Entity);
 
             var saveResult = await _context.SaveChangesAsync();
+            return !(saveResult == 1);
+        }
+
+        public async Task<Entity> GetEntityAsync(Guid entityId)
+        {
+            var query = _context.Entities.Where(Entity => Entity.Id.Equals(entityId));
+
+            if (!query.Any())
+                return null;
+
+            return query.First();
+        }
+
+        public async Task<bool> DeleteEntityAsync(Guid entityId)
+        {
+            var entity = await GetEntityAsync(entityId);
+
+            if (entity == null)
+                return false;
+
+            _context.Entities.RemoveRange(entity);
+
+            var saveResult = await _context.SaveChangesAsync();
+
             return !(saveResult == 1);
         }
 
         public bool HasEntity(Guid entityId)
         {
-            return _context.Entities.Where(entity => entity.Id.Equals(entityId)).Any();
+            var query = _context.Entities.Where(entity => entity.Id.Equals(entityId));
+
+            return query.Any();
         }
 
-        public async Task<bool> DeleteEntity(Guid tagId)
+        public IEnumerable<Entity> GetEntities()
         {
-            await _context.Entities.Where(entity => entity.Id.Equals(tagId)).ExecuteDeleteAsync();
-
-            var saveResult = await _context.SaveChangesAsync();
-            return !(saveResult == 1);
+            return _context.Entities;
         }
 
-        public async Task<bool> DeleteAllEntitiesAsync()
+        public async Task<bool> DeleteEntitiesAsync(IEnumerable<Entity> entity)
         {
-            _context.Entities.RemoveRange(_context.Entities);
+            _context.Entities.RemoveRange(entity);
 
             var saveResult = await _context.SaveChangesAsync();
-
             return !(saveResult == 1);
         }
     }

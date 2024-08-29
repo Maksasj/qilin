@@ -4,10 +4,16 @@ namespace Qilin.Service.Repository
 {
     public interface ITagRepository
     {
-        IEnumerable<Tag> GetTags();
-        
-        Task<bool> CreateTag(Tag tag);
+        Task<bool> CreateTagAsync(Tag tag);
 
-        Task<bool> DeleteTag(Guid tagId);
+        Task<Tag> GetTagAsync(Guid tagId);
+
+        Task<bool> DeleteTagAsync(Guid tagId);
+
+        bool HasTag(Guid tagId);
+
+        IEnumerable<Tag> GetTags();
+
+        Task<bool> DeleteTagsAsync(IEnumerable<Tag> tags);
     }
 }

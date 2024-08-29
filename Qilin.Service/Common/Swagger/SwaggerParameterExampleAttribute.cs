@@ -1,4 +1,4 @@
-﻿namespace Qilin.Service.Common
+﻿namespace Qilin.Service.Common.Swagger
 {
     [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = true)]
     public class SwaggerParameterExampleAttribute : Attribute

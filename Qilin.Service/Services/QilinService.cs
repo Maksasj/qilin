@@ -25,7 +25,7 @@ namespace Qilin.Service.Services
 
         public async Task<bool> CreateTag(string tagTitle, string? tagDescription)
         {
-            return await _tagRepository.CreateTag(new Tag
+            return await _tagRepository.CreateTagAsync(new Tag
             {
                 Title = tagTitle,
                 Description = tagDescription
@@ -34,7 +34,7 @@ namespace Qilin.Service.Services
 
         public async Task<bool> DeleteTag(Guid tagId)
         {
-            return await _tagRepository.DeleteTag(tagId);
+            return await _tagRepository.DeleteTagAsync(tagId);
         }
 
         public async Task<IEnumerable<Entity>> GetEntitiesAsync()

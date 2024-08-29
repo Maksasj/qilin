@@ -10,7 +10,7 @@ using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using System;
 
-namespace Qilin.Service.Common
+namespace Qilin.Service.Common.Swagger
 {
     public class SwaggerParameterExampleFilter : IParameterFilter
     {
@@ -26,7 +26,7 @@ namespace Qilin.Service.Common
             var attributes = context.ApiParameterDescription
                 .CustomAttributes()
                 .Where(x => x.GetType() == typeof(SwaggerParameterExampleAttribute))
-                .Select(attribute => (SwaggerParameterExampleAttribute) attribute).ToList();
+                .Select(attribute => (SwaggerParameterExampleAttribute)attribute).ToList();
 
             for (int i = 0; i < attributes.Count; i++)
             {
@@ -37,12 +37,12 @@ namespace Qilin.Service.Common
                 {
                     openApiExample = new OpenApiExample()
                     {
-                        Value = new OpenApiString((string) attribute.Example)
+                        Value = new OpenApiString((string)attribute.Example)
                     };
                 }
                 else
                 {
-                    openApiExample = (OpenApiExample) attribute.Example;
+                    openApiExample = (OpenApiExample)attribute.Example;
                 }
 
                 paramater.Examples.Add("Example " + (i + 1), openApiExample);
