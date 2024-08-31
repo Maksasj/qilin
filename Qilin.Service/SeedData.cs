@@ -23,7 +23,7 @@ namespace Qilin.Service
 
         private static async Task EnsureGenericTagsAsync(ILogger logger, ITagRepository tagRepository)
         {
-            if (!tagRepository.GetTags().Where(tag => tag.Title.Equals("Documents")).Any())
+            if (!tagRepository.GetTags().Where(tag => tag.Title.Equals("File")).Any())
             {
                 logger.LogWarning("'File' tag is not present in database. Trying to create new");
 
@@ -40,20 +40,6 @@ namespace Qilin.Service
 
         private static async Task EnsureHooTagsAsync(ILogger logger, ITagRepository tagRepository)
         {
-            if (!tagRepository.GetTags().Where(tag => tag.Title.Equals("HooFile")).Any())
-            {
-                logger.LogWarning("'HooFile' tag is not present in database. Trying to create new");
-
-                await tagRepository.CreateTagAsync(new Tag
-                {
-                    Id = Guid.NewGuid(),
-                    Title = "HooFile",
-                    Description = "This is some sort of file",
-                    CreatedDate = DateTimeOffset.Now,
-                    LastModificationDate = DateTimeOffset.Now
-                });
-            }
-
             if (!tagRepository.GetTags().Where(tag => tag.Title.Equals("Documents")).Any())
             {
                 logger.LogWarning("'Documents' tag is not present in database. Trying to create new");
@@ -113,23 +99,24 @@ namespace Qilin.Service
 
         private static async Task EnsureHooTagRelationsAsync(ILogger logger, ITagRepository tagRepository)
         {
-            var fileTag = await tagRepository.GetTagByTitleAsync("HooFile");
+            var file = await tagRepository.GetTagByTitleAsync("File");
+
             var documentsTag = await tagRepository.GetTagByTitleAsync("Documents");
             var picturesTag = await tagRepository.GetTagByTitleAsync("Pictures");
             var musicTag = await tagRepository.GetTagByTitleAsync("Music");
             var videosTag = await tagRepository.GetTagByTitleAsync("Videos");
 
-            if (!tagRepository.RelationExist(fileTag.Id, documentsTag.Id))
-                await tagRepository.TagTagAsync(fileTag.Id, documentsTag.Id);
+            if (!tagRepository.RelationExist(file.Id, documentsTag.Id))
+                await tagRepository.TagTagAsync(file.Id, documentsTag.Id);
 
-            if (!tagRepository.RelationExist(fileTag.Id, picturesTag.Id))
-                await tagRepository.TagTagAsync(fileTag.Id, picturesTag.Id);
+            if (!tagRepository.RelationExist(file.Id, picturesTag.Id))
+                await tagRepository.TagTagAsync(file.Id, picturesTag.Id);
         
-            if (!tagRepository.RelationExist(fileTag.Id, musicTag.Id))
-                await tagRepository.TagTagAsync(fileTag.Id, musicTag.Id);
+            if (!tagRepository.RelationExist(file.Id, musicTag.Id))
+                await tagRepository.TagTagAsync(file.Id, musicTag.Id);
 
-            if (!tagRepository.RelationExist(fileTag.Id, videosTag.Id))
-                await tagRepository.TagTagAsync(fileTag.Id, videosTag.Id);
+            if (!tagRepository.RelationExist(file.Id, videosTag.Id))
+                await tagRepository.TagTagAsync(file.Id, videosTag.Id);
         }
     }
 }

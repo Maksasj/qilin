@@ -51,5 +51,10 @@ namespace Qilin.Service.Services
         {
             return _tagRepository.GetTagRelations();
         }
+
+        public async Task<bool> TagTagAsync(Guid targetTagId, Guid toBeAppliedTagId)
+        {
+            return await _tagRepository.TagTagAsync(targetTagId, toBeAppliedTagId);
+        }
     }
 }

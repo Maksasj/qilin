@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Qilin.Service.Models;
 using Qilin.Service.Models.Response;
 using Qilin.Service.Services;
 
@@ -26,6 +27,20 @@ namespace Qilin.Service.Controllers
             {
                 Relations = relations.ToArray()
             };
+        }
+
+        [HttpPost]
+        [Route("TagTag")]
+        public async Task<IActionResult> TagTag(Guid targetTagId, Guid toBeAppliedTagId)
+        {
+            var relations = await _qilinService.TagTagAsync(targetTagId, toBeAppliedTagId);
+
+            if (relations == null)
+            {
+                return BadRequest(@"Failed to tag {targetTagId} with {toBeAppliedTagId} tag");
+            }
+
+            return Ok();
         }
     }
 }

@@ -16,5 +16,7 @@ namespace Qilin.Service.Services
         Task<bool> DeleteTag(Guid tagId);
 
         IEnumerable<TagRelation> GetTagRelations();
+
+        Task<bool> TagTagAsync(Guid targetTagId, Guid toBeAppliedTagId);
     }
 }
