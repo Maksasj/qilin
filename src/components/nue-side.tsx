@@ -2,6 +2,7 @@ import {
 	File,
 	Logs,
 	LucideTag,
+	Network,
 	Plus,
 } from "lucide-react"
 
@@ -62,6 +63,10 @@ export function NueSide(props: Props) {
 						<CommandItem onSelect={() => { props.setBrowser(NueExplorers.TagExplorer) }}>
 							<LucideTag className="mr-2 h-4 w-4" />
 							<span>Tag Explorer</span>
+						</CommandItem>
+						<CommandItem onSelect={() => { props.setBrowser(NueExplorers.TagGraphExplorer) }}>
+							<Network className="mr-2 h-4 w-4" />
+							<span>Tag Graph Explorer</span>
 						</CommandItem>
 					</CommandGroup>
 				</CommandList>
