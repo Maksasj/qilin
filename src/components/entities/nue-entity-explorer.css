@@ -59,7 +59,6 @@
 	border-radius: 0px 0px 8px 8px;
 	clip-path: inset(0);
 	/* this will hide the overflow */
-
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -87,36 +86,17 @@
 	text-overflow: ellipsis;
 }
 
-.nue-tile-selected-entity-base {
-	margin: 3em;
-
-	align-items: center;
-	justify-content: center;
-}
-
-.nue-tile-selected-entity-image-preview {
-	border-radius: 1em;
-}
-
-.nue-tile-selected-entity-information {
-	padding-top: 2em;
-}
-
-.nue-tile-selected-entity-tag-container {
-	display: flex;
-}
-
 .nue-tag {
-	flex-direction: column;
-
 	color: black;
 	font-weight: bold;
 
 	border-radius: 15px;
-	padding: 0em 1em 0em 1em;
 
-	display: flex;
-	justify-content: center;
+	padding-right: 1em;
+	padding-left: 1em;
+
+	margin-top: 0.3em;
+	margin-right: 0.3em;
 }
 
 .nue-create-tag-window-textarea {

@@ -1,0 +1,26 @@
+.nue-selected-entity-base {
+    margin: 3em;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.nue-selected-entity-preview {
+    background-color: hsl(var(--background)) !important;
+}
+
+.nue-selected-entity-image-preview {
+    border-radius: 1em solid;
+    border-radius: 8px;
+    border-color: hsl(var(--muted));
+
+    margin: auto;
+    display: block;
+    margin-bottom: 2em;
+}
+
+.nue-selected-entity-tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    white-space: nowrap;
+}

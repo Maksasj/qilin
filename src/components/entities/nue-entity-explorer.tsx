@@ -7,12 +7,14 @@ import { EntitiesPageResponseModel } from '../../models/entities-page-response-m
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '../ui/resizable';
 import { NueContent } from '../nue-content';
 import { PaginationDemo } from '@/Pagination';
-import EntityInformation from './entity-information';
+import SelectedEntityTab from './selected-entity-tab';
 import './nue-entity-explorer.css';
+import { Entity } from '@/models/entity';
 
 const EntitiesExplorer = () => {
     const [state, setState] = React.useState<EntitiesPageResponseModel | null>(null);
     const [isLoading, setIsLoading] = React.useState(true);
+    const [selectedEntity, setSelectedEntity] = React.useState<Entity | null>(null);
 
     React.useEffect(() => {
         getAllInformation()
@@ -38,7 +40,7 @@ const EntitiesExplorer = () => {
                     <NueContent>
                         <div className="nue-entity-explorer">
                             {state.entities.map(entity => (
-                                <EntityTile entity={entity} />
+                                <EntityTile key={entity.id} entity={entity} setSelectedEntity={setSelectedEntity} />
                             ))}
                         </div>
 
@@ -47,9 +49,12 @@ const EntitiesExplorer = () => {
                 </ResizablePanel>
                 <ResizableHandle />
 
-                <ResizablePanel defaultSize={10}>
-                    <EntityInformation />
-                </ResizablePanel>
+                {selectedEntity !== null && (
+                    <ResizablePanel defaultSize={10}>
+                        <SelectedEntityTab entity={selectedEntity} />
+                    </ResizablePanel>
+                )}
+
             </ResizablePanelGroup>
         </div>
     )
