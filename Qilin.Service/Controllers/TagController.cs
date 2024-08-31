@@ -23,7 +23,7 @@ namespace Qilin.Service.Controllers
         [Route("GetTags")]
         public async Task<TagsPageResponseModel> GetTags(int pageIndex = 0, int itemsPerPage = 100)
         {
-            var tags = (await _qilinService.GetTagsAsync())
+            var tags = _qilinService.GetTags()
                 .Skip(pageIndex * itemsPerPage)
                 .Take(itemsPerPage)
                 .ToArray();

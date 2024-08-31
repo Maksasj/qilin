@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Qilin.Service;
 using Qilin.Service.Common;
 using Qilin.Service.Common.Swagger;
 using Qilin.Service.Data;
@@ -60,5 +61,10 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    await SeedData.InitializeAsync(app.Logger, scope.ServiceProvider);
+}
 
 app.Run();

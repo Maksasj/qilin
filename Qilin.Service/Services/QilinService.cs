@@ -18,7 +18,7 @@ namespace Qilin.Service.Services
             _entityRepository = entityRepository;
         }
 
-        public async Task<IEnumerable<Tag>> GetTagsAsync()
+        public IEnumerable<Tag> GetTags()
         {
             return _tagRepository.GetTags();
         }

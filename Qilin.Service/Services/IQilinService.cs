@@ -5,7 +5,7 @@ namespace Qilin.Service.Services
 {
     public interface IQilinService
     {
-        Task<IEnumerable<Tag>> GetTagsAsync();
+        IEnumerable<Tag> GetTags();
 
         Task<IEnumerable<Entity>> GetEntitiesAsync();
 
