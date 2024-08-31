@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using Microsoft.VisualBasic;
 using Qilin.Service.Common;
 using Qilin.Service.Common.Swagger;
 using Qilin.Service.Services;
@@ -45,9 +43,11 @@ namespace Qilin.Service.Controllers
         public async Task<IActionResult> CreateTag(
             [SwaggerParameter(Description = "New tag master title", Required = true)]
             [SwaggerParameterExample(Example = "One piece")]
+            [FromForm]
             string tagTitle,
             [SwaggerParameter(Description = "New tag description", Required = false)]
             [SwaggerParameterExample(Example = "My most loved anime")]
+            [FromForm]
             string? tagDescription
             )
         {
@@ -56,9 +56,9 @@ namespace Qilin.Service.Controllers
                 return BadRequest();
             }
 
-            var successful = await _qilinService.CreateTag(tagTitle, tagDescription);
+            var error = await _qilinService.CreateTag(tagTitle, tagDescription);
             
-            if (!successful)
+            if (error)
             {
                 return BadRequest("Could not create tag");
             }

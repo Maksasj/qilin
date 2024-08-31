@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Qilin.Service.Common;
 using Qilin.Service.Common.Swagger;
 using Qilin.Service.Data;
 using Qilin.Service.Repository;
@@ -38,6 +39,8 @@ builder.Services.AddScoped<IEntityRepository, EntityRepository>();
 builder.Services.AddTransient<IHooService, HooService>();
 builder.Services.AddTransient<IQilinService, QilinService>();
 
+builder.Logging.ClearProviders();
+builder.Logging.AddProvider(new MochiLoggerProvider());
 
 var app = builder.Build();
 
