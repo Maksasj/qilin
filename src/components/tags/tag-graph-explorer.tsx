@@ -1,6 +1,6 @@
 import { Tag } from "@/models/tag";
 import { TagRelationsResponseModel } from "@/models/tag-relations-response-model";
-import { TagResponseModel } from "@/models/tag-response-model";
+import { TagsPageResponseModel } from "@/models/tags-page-response-model";
 import axios from "axios";
 import React from "react";
 
@@ -9,8 +9,6 @@ import SpriteText from 'three-spritetext';
 
 const nodeThreeObject = (node: any) => {
     const sprite = new SpriteText(node.title);
-    sprite.color = node.color;
-    sprite.textHeight = 8;
     return sprite;
 }
 
@@ -41,31 +39,12 @@ const TagGraphExplorer = () => {
     };
 
     const getTagsData = async () => {
-        if (relations === null)
-            return;
-
         setIsLoadingTags(true);
 
-        let queue: Array<string> = [];
-
-        relations.relations.forEach(relation => {
-            if (!queue.includes(relation.tagId))
-                queue.push(relation.tagId);
-
-            if (!queue.includes(relation.parentId))
-                queue.push(relation.parentId);
-        });
-
-        var tags: Tag[] = [];
-
-        for (var i = 0; i < queue.length; ++i) {
-            await axios.get("https://localhost:7283/GetTag?tagId=" + queue[i]).then(response => {
-                const tagReponse: TagResponseModel = response.data;
-                tags[tags.length] = tagReponse.value;
-            })
-        }
-
-        setTags(tags);
+        await axios.get("https://localhost:7283/GetTags?pageIndex=0&itemsPerPage=1000000").then(response => {
+            const allData: TagsPageResponseModel = response.data;
+            setTags(allData.tags);
+        })
 
         setIsLoadingTags(false);
     }
@@ -85,8 +64,8 @@ const TagGraphExplorer = () => {
 
     relations?.relations.forEach(relation => {
         queue.push({
-            "source": relation.tagId,
-            "target": relation.parentId
+            "source": relation.parentId,
+            "target": relation.tagId
         })
     });
 
@@ -100,6 +79,8 @@ const TagGraphExplorer = () => {
         <ForceGraph3D
             graphData={data}
             nodeAutoColorBy="group"
+            linkDirectionalArrowLength={3.5}
+            linkDirectionalArrowRelPos={1}
             nodeThreeObject={nodeThreeObject}
         />
     );
