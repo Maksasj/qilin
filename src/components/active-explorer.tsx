@@ -1,7 +1,6 @@
-import React from "react";
-import TagExplorer from "./nue-tag-explorer";
-import EntitiesExplorer from "./nue-entity-explorer";
-import MochiLogsExplorer from "./mochi-logs-explorer";
+import TagExplorer from "./tags/nue-tag-explorer";
+import EntitiesExplorer from "./entities/nue-entity-explorer";
+import MochiLogsExplorer from "./mochi/mochi-logs-explorer";
 
 export enum NueExplorers {
     TagExplorer,

@@ -1,5 +1,5 @@
 import { FileThumbnailItem } from "@/models/file-thumbnail-item";
-import { Entity } from "../models/entity";
+import { Entity } from "../../models/entity";
 import React from "react";
 import axios from "axios";
 

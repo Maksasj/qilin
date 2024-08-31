@@ -2,15 +2,16 @@ import * as React from 'react';
 
 import axios from 'axios';
 
-import './nue-entity-explorer.css';
-import TagTile from './tag-tile';
-import { TagsPageResponseModel } from '@/models/tags-page-response-model';
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from './ui/resizable';
-import { NueContent } from './nue-content';
+import EntityTile from './entity-tile';
+import { EntitiesPageResponseModel } from '../../models/entities-page-response-model';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '../ui/resizable';
+import { NueContent } from '../nue-content';
 import { PaginationDemo } from '@/Pagination';
+import EntityInformation from './entity-information';
+import './nue-entity-explorer.css';
 
-const TagExplorer = () => {
-    const [state, setState] = React.useState<TagsPageResponseModel | null>(null);
+const EntitiesExplorer = () => {
+    const [state, setState] = React.useState<EntitiesPageResponseModel | null>(null);
     const [isLoading, setIsLoading] = React.useState(true);
 
     React.useEffect(() => {
@@ -20,10 +21,10 @@ const TagExplorer = () => {
     const getAllInformation = async () => {
         setIsLoading(true);
 
-        await axios.get("https://localhost:7283/GetTags?pageIndex=0&itemsPerPage=36").then(response => {
+        await axios.get("https://localhost:7283/GetEntities?pageIndex=0&itemsPerPage=36").then(response => {
             setIsLoading(false);
 
-            const allData: TagsPageResponseModel = response.data;
+            const allData: EntitiesPageResponseModel = response.data;
             setState(allData);
         })
     };
@@ -36,8 +37,8 @@ const TagExplorer = () => {
                 <ResizablePanel defaultSize={50}>
                     <NueContent>
                         <div className="nue-entity-explorer">
-                            {state.tags.map(tag => (
-                                <TagTile tag={tag} />
+                            {state.entities.map(entity => (
+                                <EntityTile entity={entity} />
                             ))}
                         </div>
 
@@ -45,9 +46,13 @@ const TagExplorer = () => {
                     </NueContent>
                 </ResizablePanel>
                 <ResizableHandle />
+
+                <ResizablePanel defaultSize={10}>
+                    <EntityInformation />
+                </ResizablePanel>
             </ResizablePanelGroup>
         </div>
     )
 };
 
-export default TagExplorer;
+export default EntitiesExplorer;

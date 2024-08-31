@@ -1,13 +1,8 @@
 import {
-	Calendar,
-	ChevronsLeftRightIcon,
 	File,
-	Heart,
 	Logs,
 	LucideTag,
 	Plus,
-	Settings,
-	User,
 } from "lucide-react"
 
 import {
@@ -18,9 +13,8 @@ import {
 	CommandItem,
 	CommandList,
 	CommandSeparator,
-	CommandShortcut,
 } from "@/components/ui/command"
-import { CreateTagWindow } from "@/components/create-tag-window";
+import { CreateTagWindow } from "@/components/tags/create-tag-window";
 import React from "react";
 import { AddWebFileWindow } from "./add-web-file-window";
 import { NueExplorers } from "./active-explorer";

@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button"
-import { PaginationDemo } from "./Pagination"
 import { Input } from "./components/ui/input"
 import { Toaster } from "sonner"
 import { ThemeProvider } from "./components/theme-provider"
@@ -7,12 +6,10 @@ import { ModeToggle } from "./components/mode-toggle"
 import { NueSide } from "./components/nue-side"
 import { NueTopBar } from "./components/nue-top-bar"
 
-import { NueContent } from "./components/nue-content"
 import './assets/nue.css';
+
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./components/ui/resizable"
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "./components/ui/breadcrumb"
 import { Separator } from "./components/ui/separator"
-import EntityInformation from "./components/entity-information"
 import React from "react"
 import { ActiveExplorer, NueExplorers } from "./components/active-explorer"
 
@@ -46,7 +43,6 @@ export default function Home() {
 					<ActiveExplorer explorer={explorer} />
 				</ResizablePanel>
 			</ResizablePanelGroup>
-
 			<Toaster />
 		</ThemeProvider>
 

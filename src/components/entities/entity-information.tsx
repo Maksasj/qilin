@@ -1,4 +1,4 @@
-import TagBadge from "./tag-badge";
+import TagBadge from "../tags/tag-badge";
 
 const EntityInformation = () => {
     return (
