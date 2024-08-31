@@ -113,7 +113,23 @@ namespace Qilin.Service
 
         private static async Task EnsureHooTagRelationsAsync(ILogger logger, ITagRepository tagRepository)
         {
+            var fileTag = await tagRepository.GetTagByTitleAsync("HooFile");
+            var documentsTag = await tagRepository.GetTagByTitleAsync("Documents");
+            var picturesTag = await tagRepository.GetTagByTitleAsync("Pictures");
+            var musicTag = await tagRepository.GetTagByTitleAsync("Music");
+            var videosTag = await tagRepository.GetTagByTitleAsync("Videos");
 
+            if (!tagRepository.RelationExist(fileTag.Id, documentsTag.Id))
+                await tagRepository.TagTagAsync(fileTag.Id, documentsTag.Id);
+
+            if (!tagRepository.RelationExist(fileTag.Id, picturesTag.Id))
+                await tagRepository.TagTagAsync(fileTag.Id, picturesTag.Id);
+        
+            if (!tagRepository.RelationExist(fileTag.Id, musicTag.Id))
+                await tagRepository.TagTagAsync(fileTag.Id, musicTag.Id);
+
+            if (!tagRepository.RelationExist(fileTag.Id, videosTag.Id))
+                await tagRepository.TagTagAsync(fileTag.Id, videosTag.Id);
         }
     }
 }

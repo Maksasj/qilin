@@ -4,6 +4,7 @@ using Qilin.Service.Common.Swagger;
 using Qilin.Service.Services;
 using Qilin.Service.Models.Response;
 using Swashbuckle.AspNetCore.Annotations;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Qilin.Service.Controllers
 {
@@ -34,6 +35,24 @@ namespace Qilin.Service.Controllers
                 ItemCount = tags.Length,
                 Tags = tags,
             };
+        }
+
+        [HttpGet]
+        [Route("GetTag")]
+        public async Task<IActionResult> GetTag(Guid tagId)
+        {
+            var tag = await _qilinService.GetTagAsync(tagId);
+
+            if (tag == null)
+            {
+                return BadRequest($@"Tag with id {tagId}, does not exist");
+            }
+
+            return Ok(new TagResponseModel
+            {
+                Value = tag,
+                ParentTags = Array.Empty<TagResponseModel>()
+            });
         }
 
         [HttpPost]

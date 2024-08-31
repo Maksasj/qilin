@@ -23,6 +23,11 @@ namespace Qilin.Service.Services
             return _tagRepository.GetTags();
         }
 
+        public async Task<Tag> GetTagAsync(Guid tagId)
+        {
+            return await _tagRepository.GetTagAsync(tagId);
+        }
+
         public async Task<bool> CreateTag(string tagTitle, string? tagDescription)
         {
             return await _tagRepository.CreateTagAsync(new Tag
@@ -40,6 +45,11 @@ namespace Qilin.Service.Services
         public async Task<IEnumerable<Entity>> GetEntitiesAsync()
         {
             return _entityRepository.GetEntities();
+        }
+
+        public IEnumerable<TagRelation> GetTagRelations()
+        {
+            return _tagRepository.GetTagRelations();
         }
     }
 }
