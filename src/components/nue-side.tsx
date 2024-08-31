@@ -3,6 +3,7 @@ import {
 	ChevronsLeftRightIcon,
 	File,
 	Heart,
+	Logs,
 	LucideTag,
 	Plus,
 	Settings,
@@ -36,6 +37,13 @@ export function NueSide(props: Props) {
 		<div className="nue-side">
 			<Command>
 				<CommandInput placeholder="Type a category or search..." />
+				<CommandGroup heading="Overall">
+					<CommandItem onSelect={() => { props.setBrowser(NueExplorers.MochiLogs) }}>
+						<Logs className="mr-2 h-4 w-4" />
+						<span>Mochi logs</span>
+					</CommandItem>
+				</CommandGroup>
+				<CommandSeparator />
 				<CommandList className="h-4">
 					<CommandEmpty>No results found.</CommandEmpty>
 					<CommandGroup heading="Actions">
@@ -51,6 +59,7 @@ export function NueSide(props: Props) {
 						</CommandItem>
 					</CommandGroup>
 					<CommandSeparator />
+
 					<CommandGroup heading="Explore">
 						<CommandItem onSelect={() => { props.setBrowser(NueExplorers.EntityExplorer) }}>
 							<File className="mr-2 h-4 w-4" />
@@ -61,7 +70,6 @@ export function NueSide(props: Props) {
 							<span>Tag Explorer</span>
 						</CommandItem>
 					</CommandGroup>
-					<CommandSeparator />
 				</CommandList>
 			</Command>
 		</div>

@@ -5,6 +5,9 @@ import axios from 'axios';
 import './nue-entity-explorer.css';
 import TagTile from './tag-tile';
 import { TagsPageResponseModel } from '@/models/tags-page-response-model';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from './ui/resizable';
+import { NueContent } from './nue-content';
+import { PaginationDemo } from '@/Pagination';
 
 const TagExplorer = () => {
     const [state, setState] = React.useState<TagsPageResponseModel | null>(null);
@@ -28,10 +31,21 @@ const TagExplorer = () => {
     if (isLoading || state === null) return <p>Loading...</p>
 
     return (
-        <div className="nue-entity-explorer">
-            {state.tags.map(tag => (
-                <TagTile tag={tag} />
-            ))}
+        <div>
+            <ResizablePanelGroup direction="horizontal" className="max-w-md rounded-lg border md:min-w-[450px]">
+                <ResizablePanel defaultSize={50}>
+                    <NueContent>
+                        <div className="nue-entity-explorer">
+                            {state.tags.map(tag => (
+                                <TagTile tag={tag} />
+                            ))}
+                        </div>
+
+                        <PaginationDemo />
+                    </NueContent>
+                </ResizablePanel>
+                <ResizableHandle />
+            </ResizablePanelGroup>
         </div>
     )
 };

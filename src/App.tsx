@@ -41,29 +41,9 @@ export default function Home() {
 					<NueSide setBrowser={setExplorer} />
 				</ResizablePanel>
 				<ResizableHandle />
+
 				<ResizablePanel defaultSize={50}>
-					<NueContent>
-						<Breadcrumb>
-							<BreadcrumbList>
-								<BreadcrumbItem>
-									<BreadcrumbLink href="/">Home</BreadcrumbLink>
-								</BreadcrumbItem>
-								<BreadcrumbSeparator />
-								<BreadcrumbItem>
-									<BreadcrumbLink href="/components">Entities</BreadcrumbLink>
-								</BreadcrumbItem>
-							</BreadcrumbList>
-						</Breadcrumb>
-
-						<ActiveExplorer explorer={explorer} />
-
-						<PaginationDemo />
-					</NueContent>
-				</ResizablePanel>
-				<ResizableHandle />
-
-				<ResizablePanel defaultSize={10}>
-					<EntityInformation />
+					<ActiveExplorer explorer={explorer} />
 				</ResizablePanel>
 			</ResizablePanelGroup>
 
