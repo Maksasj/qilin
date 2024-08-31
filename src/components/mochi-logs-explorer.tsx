@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import axios from 'axios';
 
-import EntityTile from './entity-tile';
 import './nue-entity-explorer.css';
-import { EntitiesPageResponseModel } from '../models/entities-page-response-model';
+import TagTile from './tag-tile';
+import { TagsPageResponseModel } from '@/models/tags-page-response-model';
 
-const EntitiesExplorer = () => {
-    const [state, setState] = React.useState<EntitiesPageResponseModel | null>(null);
+const MochiLogsExplorer = () => {
+    const [state, setState] = React.useState<TagsPageResponseModel | null>(null);
     const [isLoading, setIsLoading] = React.useState(true);
 
     React.useEffect(() => {
@@ -17,10 +17,10 @@ const EntitiesExplorer = () => {
     const getAllInformation = async () => {
         setIsLoading(true);
 
-        await axios.get("https://localhost:7283/GetEntities?pageIndex=0&itemsPerPage=36").then(response => {
+        await axios.get("https://localhost:7283/GetTags?pageIndex=0&itemsPerPage=36").then(response => {
             setIsLoading(false);
 
-            const allData: EntitiesPageResponseModel = response.data;
+            const allData: TagsPageResponseModel = response.data;
             setState(allData);
         })
     };
@@ -29,11 +29,11 @@ const EntitiesExplorer = () => {
 
     return (
         <div className="nue-entity-explorer">
-            {state.entities.map(entity => (
-                <EntityTile entity={entity} />
+            {state.tags.map(tag => (
+                <TagTile tag={tag} />
             ))}
         </div>
     )
 };
 
-export default EntitiesExplorer;
+export default MochiLogsExplorer;

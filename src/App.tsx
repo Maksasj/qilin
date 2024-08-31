@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button"
-import EntitiesExplorer from "./components/nue-entity-explorer"
 import { PaginationDemo } from "./Pagination"
 import { Input } from "./components/ui/input"
 import { Toaster } from "sonner"
@@ -15,65 +14,61 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbS
 import { Separator } from "./components/ui/separator"
 import EntityInformation from "./components/entity-information"
 import React from "react"
-import TagExplorer from "./components/nue-tag-explorer"
+import { ActiveExplorer, NueExplorers } from "./components/active-explorer"
 
 export default function Home() {
-  const [browser, setBrowser] = React.useState<boolean>(true);
+	const [explorer, setExplorer] = React.useState<NueExplorers>(NueExplorers.EntityExplorer);
 
-  return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+	return (
+		<ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
 
-      <NueTopBar>
-        <div className="nue-logo">
-          🐏 nue
-        </div>
-        <div className="nue-search">
-          <Input className="nue-search-input" type="text" placeholder="Type a tag or search by multiple..." />
-          <Button variant="outline">Search</Button>
-        </div>
-        <div className="nue-right">
-          <ModeToggle />
-        </div>
-      </NueTopBar>
-      <Separator/>
+			<NueTopBar>
+				<div className="nue-logo">
+					🐏 nue
+				</div>
+				<div className="nue-search">
+					<Input className="nue-search-input" type="text" placeholder="Type a tag or search by multiple..." />
+					<Button variant="outline">Search</Button>
+				</div>
+				<div className="nue-right">
+					<ModeToggle />
+				</div>
+			</NueTopBar>
+			<Separator />
 
-      <ResizablePanelGroup direction="horizontal" className="max-w-md rounded-lg border md:min-w-[450px]">
-        <ResizablePanel defaultSize={10}>
-          <NueSide setBrowser={setBrowser} />
-        </ResizablePanel>
-        <ResizableHandle />
-        <ResizablePanel defaultSize={50}>
-          <NueContent> 
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="/">Home</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbLink href="/components">Entities</BreadcrumbLink>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-            
-            {browser ? (
-              <EntitiesExplorer />
-            ) : (
-              <TagExplorer />
-            )}
+			<ResizablePanelGroup direction="horizontal" className="max-w-md rounded-lg border md:min-w-[450px]">
+				<ResizablePanel defaultSize={10}>
+					<NueSide setBrowser={setExplorer} />
+				</ResizablePanel>
+				<ResizableHandle />
+				<ResizablePanel defaultSize={50}>
+					<NueContent>
+						<Breadcrumb>
+							<BreadcrumbList>
+								<BreadcrumbItem>
+									<BreadcrumbLink href="/">Home</BreadcrumbLink>
+								</BreadcrumbItem>
+								<BreadcrumbSeparator />
+								<BreadcrumbItem>
+									<BreadcrumbLink href="/components">Entities</BreadcrumbLink>
+								</BreadcrumbItem>
+							</BreadcrumbList>
+						</Breadcrumb>
 
-            <PaginationDemo />
-          </NueContent>
-        </ResizablePanel>
-        <ResizableHandle />
+						<ActiveExplorer explorer={explorer} />
 
-        <ResizablePanel defaultSize={10}>
-          <EntityInformation />
-        </ResizablePanel>
-      </ResizablePanelGroup>
-      
-      <Toaster />
-  </ThemeProvider>
-    
-  )
+						<PaginationDemo />
+					</NueContent>
+				</ResizablePanel>
+				<ResizableHandle />
+
+				<ResizablePanel defaultSize={10}>
+					<EntityInformation />
+				</ResizablePanel>
+			</ResizablePanelGroup>
+
+			<Toaster />
+		</ThemeProvider>
+
+	)
 }

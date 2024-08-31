@@ -19,7 +19,7 @@ const TagExplorer = () => {
 
         await axios.get("https://localhost:7283/GetTags?pageIndex=0&itemsPerPage=36").then(response => {
             setIsLoading(false);
-            
+
             const allData: TagsPageResponseModel = response.data;
             setState(allData);
         })
@@ -30,7 +30,7 @@ const TagExplorer = () => {
     return (
         <div className="nue-entity-explorer">
             {state.tags.map(tag => (
-                <TagTile tag = {tag} />
+                <TagTile tag={tag} />
             ))}
         </div>
     )

@@ -24,7 +24,7 @@ const EntityTile = ({ entity }: { entity: Entity }) => {
     };
 
     if (isLoading || state === null || state.thumbnailUrl === "empty") {
-            return (
+        return (
             <div className={`nue-tile-base`}>
                 <div className="nue-tile-header">
                     <div className="nue-tile-entity-name">{entity.name}</div>
