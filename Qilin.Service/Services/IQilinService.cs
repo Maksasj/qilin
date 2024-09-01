@@ -22,5 +22,7 @@ namespace Qilin.Service.Services
         Task<bool> TagTagAsync(Guid targetTagId, Guid toBeAppliedTagId);
 
         Task<bool> TagEntityAsync(Guid targetEntityId, Guid toBeAppliedTagId);
+
+        Task<IEnumerable<Tag>> GetEntityTagsAsync(Guid entityId);
     }
 }

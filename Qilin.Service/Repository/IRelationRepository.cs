@@ -4,13 +4,15 @@ namespace Qilin.Service.Repository
 {
     public interface IRelationRepository
     {
-        IEnumerable<TagRelation> GetTagRelations();
+        IEnumerable<TagRelation> GetAllTagRelations();
+
+        IEnumerable<EntityTagRelation> GetAllEntityRelations();
+
+        IEnumerable<TagRelation> GetTagRelations(Guid tagId);
+
+        IEnumerable<EntityTagRelation> GetEntityRelations(Guid entityId);
 
         Task<bool> DeleteRelationsForAsync(Tag tag);
-
-        Task<bool> DeleteRelationsForManyAsync(IEnumerable<Tag> tags);
-
-        Task<bool> DeleteTagsAsync(IEnumerable<Tag> tags);
 
         /* A <- B */
         /* A is tag, B is parent, A is tagged with B */

@@ -45,18 +45,16 @@ namespace Qilin.Service.Controllers
         {
             var entity = (await _qilinService.GetEntityAsync(entityId));
 
-            if (entity == null)
+            if (entity == null) 
                 return BadRequest($"Entity {entityId.ToString()} does not exist");
 
-            /*
             var tags = (await _qilinService.GetEntityTagsAsync(entityId))
                 .Select(tag => tag.Id);
-            */
 
             return Ok(new EntityResponseModel
             {
                 Value = entity,
-                // Tags = tags.ToArray()
+                TagIds = tags.ToArray()
             });
         }
 

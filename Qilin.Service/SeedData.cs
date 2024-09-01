@@ -18,6 +18,7 @@ namespace Qilin.Service
 
             await EnsureGenericTagsAsync(logger, tagRepository);
             await EnsureHooTagsAsync(logger, tagRepository);
+            await EnsureHooSourceTagsAsync(logger, tagRepository);
 
             await EnsureHooTagRelationsAsync(logger, tagRepository, relationRepository);
         }
@@ -98,6 +99,48 @@ namespace Qilin.Service
             }
         }
 
+        private static async Task EnsureHooSourceTagsAsync(ILogger logger, ITagRepository tagRepository)
+        {
+            if (!tagRepository.GetTags().Where(tag => tag.Title.Equals("GoogleDrive")).Any())
+            {
+                logger.LogWarning("'GoogleDrive' tag is not present in database. Trying to create new");
+
+                await tagRepository.CreateTagAsync(new Tag
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "GoogleDrive",
+                    CreatedDate = DateTimeOffset.Now,
+                    LastModificationDate = DateTimeOffset.Now
+                });
+            }
+
+            if (!tagRepository.GetTags().Where(tag => tag.Title.Equals("OneDrive")).Any())
+            {
+                logger.LogWarning("'OneDrive' tag is not present in database. Trying to create new");
+
+                await tagRepository.CreateTagAsync(new Tag
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "OneDrive",
+                    CreatedDate = DateTimeOffset.Now,
+                    LastModificationDate = DateTimeOffset.Now
+                });
+            }
+
+            if (!tagRepository.GetTags().Where(tag => tag.Title.Equals("WebFile")).Any())
+            {
+                logger.LogWarning("'WebFile' tag is not present in database. Trying to create new");
+
+                await tagRepository.CreateTagAsync(new Tag
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "WebFile",
+                    CreatedDate = DateTimeOffset.Now,
+                    LastModificationDate = DateTimeOffset.Now
+                });
+            }
+        }
+        
         private static async Task EnsureHooTagRelationsAsync(ILogger logger, ITagRepository tagRepository, IRelationRepository relationRepository)
         {
             var file = await tagRepository.GetTagByTitleAsync("File");

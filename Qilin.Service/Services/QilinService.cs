@@ -64,7 +64,7 @@ namespace Qilin.Service.Services
 
         public IEnumerable<TagRelation> GetTagRelations()
         {
-            return _relationRepository.GetTagRelations();
+            return _relationRepository.GetAllTagRelations();
         }
 
         public async Task<bool> TagTagAsync(Guid targetTagId, Guid toBeAppliedTagId)
@@ -75,6 +75,20 @@ namespace Qilin.Service.Services
         public async Task<bool> TagEntityAsync(Guid targetEntityId, Guid toBeAppliedTagId)
         {
             return await _relationRepository.TagEntityAsync(targetEntityId, toBeAppliedTagId);
+        }
+
+        public async Task<IEnumerable<Tag>> GetEntityTagsAsync(Guid entityId)
+        {
+            if(!_entityRepository.HasEntity(entityId))
+                return Enumerable.Empty<Tag>();
+
+            var relations = _relationRepository
+                .GetEntityRelations(entityId)
+                .Select(relation => relation.TagId);
+
+            return _tagRepository
+                .GetTags()
+                .Where(tag => relations.Contains(tag.Id));
         }
     }
 }

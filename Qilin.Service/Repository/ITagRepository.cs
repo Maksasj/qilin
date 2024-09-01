@@ -5,6 +5,7 @@ namespace Qilin.Service.Repository
     public interface ITagRepository
     {
         IEnumerable<Tag> GetTags();
+
         Task<Tag> GetTagByTitleAsync(string title);
 
         Task<Tag> GetTagAsync(Guid tagId);
