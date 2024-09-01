@@ -11,18 +11,31 @@ namespace Qilin.Service.Services.Hoo
     public class HooService : IHooService
     {
         private readonly ILogger<HooService> _logger;
-        private readonly IEntityRepository _entityRepository;
         private readonly IHooClient _hooClient;
 
-        public HooService(ILogger<HooService> logger, IEntityRepository entityRepository)
+        private readonly IEntityRepository _entityRepository;
+        private readonly ITagRepository _tagRepository;
+        private readonly IRelationRepository _relationRepository;
+
+        public HooService(
+            ILogger<HooService> logger, 
+            IEntityRepository entityRepository,
+            ITagRepository tagRepository,
+            IRelationRepository relationRepository
+            )
         {
             _logger = logger;
-            _entityRepository = entityRepository;
             _hooClient = new HooClient();
+
+            _entityRepository = entityRepository;
+            _tagRepository = tagRepository;
+            _relationRepository = relationRepository;
         }
 
         public async Task SyncAsync()
         {
+            var fileTag = await _tagRepository.GetTagByTitleAsync("File");
+
             await foreach (var file in _hooClient.GetFilesAsync())
             {
                 if (_entityRepository.HasEntity(file.Id))
@@ -36,6 +49,8 @@ namespace Qilin.Service.Services.Hoo
                     AddedToDbDate = DateTimeOffset.Now,
                     LastModificationDate = DateTimeOffset.Now
                 });
+
+                _relationRepository.EntityRelationExist(file.Id, fileTag.Id);
             }
         }
 

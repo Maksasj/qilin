@@ -5,9 +5,11 @@ namespace Qilin.Service.Services
 {
     public interface IQilinService
     {
-        IEnumerable<Tag> GetTags();
-
         Task<IEnumerable<Entity>> GetEntitiesAsync();
+
+        Task<Entity> GetEntityAsync(Guid entityId);
+
+        IEnumerable<Tag> GetTags();
 
         Task<Tag> GetTagAsync(Guid tagId);
 
@@ -18,5 +20,7 @@ namespace Qilin.Service.Services
         IEnumerable<TagRelation> GetTagRelations();
 
         Task<bool> TagTagAsync(Guid targetTagId, Guid toBeAppliedTagId);
+
+        Task<bool> TagEntityAsync(Guid targetEntityId, Guid toBeAppliedTagId);
     }
 }

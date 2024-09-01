@@ -14,11 +14,12 @@ namespace Qilin.Service
             logger.LogInformation("Started checking for initial database values");
 
             var tagRepository = services.GetRequiredService<ITagRepository>();
+            var relationRepository = services.GetRequiredService<IRelationRepository>();
 
             await EnsureGenericTagsAsync(logger, tagRepository);
             await EnsureHooTagsAsync(logger, tagRepository);
 
-            await EnsureHooTagRelationsAsync(logger, tagRepository);
+            await EnsureHooTagRelationsAsync(logger, tagRepository, relationRepository);
         }
 
         private static async Task EnsureGenericTagsAsync(ILogger logger, ITagRepository tagRepository)
@@ -97,7 +98,7 @@ namespace Qilin.Service
             }
         }
 
-        private static async Task EnsureHooTagRelationsAsync(ILogger logger, ITagRepository tagRepository)
+        private static async Task EnsureHooTagRelationsAsync(ILogger logger, ITagRepository tagRepository, IRelationRepository relationRepository)
         {
             var file = await tagRepository.GetTagByTitleAsync("File");
 
@@ -106,17 +107,17 @@ namespace Qilin.Service
             var musicTag = await tagRepository.GetTagByTitleAsync("Music");
             var videosTag = await tagRepository.GetTagByTitleAsync("Videos");
 
-            if (!tagRepository.RelationExist(file.Id, documentsTag.Id))
-                await tagRepository.TagTagAsync(file.Id, documentsTag.Id);
+            if (!relationRepository.TagRelationExist(file.Id, documentsTag.Id))
+                await relationRepository.TagTagAsync(file.Id, documentsTag.Id);
 
-            if (!tagRepository.RelationExist(file.Id, picturesTag.Id))
-                await tagRepository.TagTagAsync(file.Id, picturesTag.Id);
+            if (!relationRepository.TagRelationExist(file.Id, picturesTag.Id))
+                await relationRepository.TagTagAsync(file.Id, picturesTag.Id);
         
-            if (!tagRepository.RelationExist(file.Id, musicTag.Id))
-                await tagRepository.TagTagAsync(file.Id, musicTag.Id);
+            if (!relationRepository.TagRelationExist(file.Id, musicTag.Id))
+                await relationRepository.TagTagAsync(file.Id, musicTag.Id);
 
-            if (!tagRepository.RelationExist(file.Id, videosTag.Id))
-                await tagRepository.TagTagAsync(file.Id, videosTag.Id);
+            if (!relationRepository.TagRelationExist(file.Id, videosTag.Id))
+                await relationRepository.TagTagAsync(file.Id, videosTag.Id);
         }
     }
 }

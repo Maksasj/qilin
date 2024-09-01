@@ -7,14 +7,9 @@ namespace Qilin.Service.Repository
 {
     public class TagRepository : ITagRepository
     {
-        private readonly ILogger<TagRepository> _logger;
         private readonly QilinDbContext _context;
 
-        public TagRepository(ILogger<TagRepository> logger, QilinDbContext context)
-        {
-            _logger = logger;
-            _context = context;
-        }
+        public TagRepository(QilinDbContext context) => _context = context;
 
         public async Task<bool> CreateTagAsync(Tag tag)
         {
@@ -51,12 +46,6 @@ namespace Qilin.Service.Repository
             if (tag == null)
                 return false;
 
-            // Removing tag
-            _context.Tags.RemoveRange(tag);
-
-            // Remove all relations
-            await DeleteRelationsForAsync(tag);
-
             var saveResult = await _context.SaveChangesAsync();
             return saveResult != 0;
         }
@@ -71,85 +60,6 @@ namespace Qilin.Service.Repository
         public IEnumerable<Tag> GetTags()
         {
             return _context.Tags;
-        }
-
-        public IEnumerable<TagRelation> GetTagRelations()
-        {
-            return _context.TagRelations;
-        }
-
-        public async Task<bool> DeleteRelationsForAsync(Tag tag)
-        {
-            // Removing all parent relations
-            var parents = _context.TagRelations.Where(relation => relation.TagId.Equals(tag.Id));
-            _context.TagRelations.RemoveRange(parents);
-
-            // Removing all child relations
-            var childs = _context.TagRelations.Where(relation => relation.ParentId.Equals(tag.Id));
-            _context.TagRelations.RemoveRange(childs);
-
-            var saveResult = await _context.SaveChangesAsync();
-            return saveResult != 0;
-        }
-
-        public async Task<bool> DeleteRelationsForManyAsync(IEnumerable<Tag> tags)
-        {
-            foreach (var tag in tags)
-            {
-                // Removing all parent relations
-                var parents = _context.TagRelations.Where(relation => relation.TagId.Equals(tag.Id));
-                _context.TagRelations.RemoveRange(parents);
-
-                // Removing all child relations
-                var childs = _context.TagRelations.Where(relation => relation.ParentId.Equals(tag.Id));
-                _context.TagRelations.RemoveRange(childs);
-            }
-
-            var saveResult = await _context.SaveChangesAsync();
-            return saveResult != 0;
-        }
-
-        public async Task<bool> DeleteTagsAsync(IEnumerable<Tag> tags)
-        {
-            // First lets remove all relations
-            await DeleteRelationsForManyAsync(tags);
-
-            _context.Tags.RemoveRange(tags);
-
-            var saveResult = await _context.SaveChangesAsync();
-            return saveResult != 0;
-        }
-
-        public bool RelationExist(Guid tagId, Guid parentId)
-        {
-            var query = _context.TagRelations.Where(relation =>
-                relation.TagId.Equals(tagId) && relation.ParentId.Equals(parentId)
-            );
-
-            return query.Any();
-        }
-
-        public async Task<bool> TagTagAsync(Guid targetTagId, Guid toBeAppliedTagId)
-        {
-            if(!HasTag(targetTagId))
-                return false;
-
-            if (!HasTag(toBeAppliedTagId))
-                return false;
-
-            if (RelationExist(targetTagId, toBeAppliedTagId))
-                return false;
-
-            // Todo check if this is a recursive tag relation
-
-            _context.TagRelations.Add(new TagRelation
-            {
-                TagId = targetTagId,
-                ParentId = toBeAppliedTagId
-            });
-
-            var saveResult = await _context.SaveChangesAsync();
-            return saveResult == 1;
         }
     }
 }

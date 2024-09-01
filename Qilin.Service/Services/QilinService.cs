@@ -10,12 +10,14 @@ namespace Qilin.Service.Services
 
         private readonly ITagRepository _tagRepository;
         private readonly IEntityRepository _entityRepository;
+        private readonly IRelationRepository _relationRepository;
 
-        public QilinService(ILogger<QilinService> logger, ITagRepository tagRepository, IEntityRepository entityRepository)
+        public QilinService(ILogger<QilinService> logger, ITagRepository tagRepository, IEntityRepository entityRepository, IRelationRepository relationRepository)
         {
             _logger = logger;
             _tagRepository = tagRepository;
             _entityRepository = entityRepository;
+            _relationRepository = relationRepository;
         }
 
         public IEnumerable<Tag> GetTags()
@@ -39,6 +41,14 @@ namespace Qilin.Service.Services
 
         public async Task<bool> DeleteTag(Guid tagId)
         {
+            var tag = await _tagRepository.GetTagAsync(tagId);
+
+            if (tag == null)
+                return false;
+
+            // Remove all relations
+            await _relationRepository.DeleteRelationsForAsync(tag);
+
             return await _tagRepository.DeleteTagAsync(tagId);
         }
 
@@ -47,14 +57,24 @@ namespace Qilin.Service.Services
             return _entityRepository.GetEntities();
         }
 
+        public async Task<Entity> GetEntityAsync(Guid entityId)
+        {
+            return await _entityRepository.GetEntityAsync(entityId);
+        }
+
         public IEnumerable<TagRelation> GetTagRelations()
         {
-            return _tagRepository.GetTagRelations();
+            return _relationRepository.GetTagRelations();
         }
 
         public async Task<bool> TagTagAsync(Guid targetTagId, Guid toBeAppliedTagId)
         {
-            return await _tagRepository.TagTagAsync(targetTagId, toBeAppliedTagId);
+            return await _relationRepository.TagTagAsync(targetTagId, toBeAppliedTagId);
+        }
+
+        public async Task<bool> TagEntityAsync(Guid targetEntityId, Guid toBeAppliedTagId)
+        {
+            return await _relationRepository.TagEntityAsync(targetEntityId, toBeAppliedTagId);
         }
     }
 }
