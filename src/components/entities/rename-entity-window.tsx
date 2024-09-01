@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "../ui/textarea"
 import axios from "axios"
 import { Entity } from "@/models/entity"
 

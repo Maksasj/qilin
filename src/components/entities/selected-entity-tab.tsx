@@ -32,6 +32,7 @@ const EntityOverallInfo = ({ entity }: SelectedEntityProps) => {
                 </div>
             </div>
 
+            <div className="nue-selected-entity-type">ID: {entity.id}</div>
             <div className="nue-selected-entity-type">Type: {entity.type}</div>
 
             <div className="nue-selected-entity-overall-date-container">
@@ -44,7 +45,7 @@ const EntityOverallInfo = ({ entity }: SelectedEntityProps) => {
 
 const EntityTags = ({ entity }: SelectedEntityProps) => {
     return (
-        <div className="nue-selected-entity-tag-wrapper">
+        <div className="nue-selected-entity-tags-wrapper">
             <div className="nue-selected-entity-tag-container-label ">
                 Tags
             </div>
@@ -106,7 +107,22 @@ const SelectedEntityThumbnail = ({ entity }: SelectedEntityProps) => {
 }
 
 const EntitySpecificInfo = ({ entity }: SelectedEntityProps) => {
-    return (<div></div>);
+    return (
+        <div>
+            <div className="nue-selected-entity-name-wrapper">
+                <div className="nue-selected-entity-name">Information</div>
+            </div>
+
+            <div className="nue-selected-entity-type">Provider: 🐦‍🔥 Hoo</div>
+            <div className="nue-selected-entity-type">File type: Web file</div>
+            <div className="nue-selected-entity-type">AccessUri: https://cdn.donmai.us/sample/1b/9a/__original_drawn_by_kagematsuri__sample-1b9ab66710cde25d6841ce8524c1eec7.jpg</div>
+
+            <div className="nue-selected-entity-overall-date-container">
+                <div>Created date: {format(new Date(entity.addedToDbDate), 'yyyy-MM-dd HH:mm')}</div>
+                <div>Last modification: {format(new Date(entity.lastModificationDate), 'yyyy-MM-dd HH:mm')}</div>
+            </div>
+        </div>
+    );
 }
 
 const SelectedEntity = ({ entity }: SelectedEntityProps) => {

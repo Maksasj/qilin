@@ -21,6 +21,7 @@
 
 .nue-selected-entity-tag-container-label {
     font-weight: bold;
+    margin-top: 0.5em;
 }
 
 .nue-selected-entity-name-wrapper {}
@@ -53,6 +54,10 @@
     word-wrap: break-word;
     max-width: 100%;
     color: hsl(var(--muted-foreground));
+}
+
+.nue-selected-entity-tags-wrapper {
+    margin-bottom: 1em;
 }
 
 .nue-selected-entity-add-tag {
