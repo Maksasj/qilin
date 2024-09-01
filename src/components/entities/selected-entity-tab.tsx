@@ -2,12 +2,15 @@ import { Entity } from "@/models/entity";
 import TagBadge from "../tags/tag-badge";
 import { FileThumbnailItem } from "@/models/file-thumbnail-item";
 import React from "react";
-import axios from "axios";
+import axios, { all } from "axios";
 import { format } from 'date-fns';
 
 import './selected-entity-tab.css'
 import { CirclePlus, Pen } from "lucide-react";
 import { RenameEntityWindow } from "./rename-entity-window";
+import { EntityResponseModel } from "@/models/entity-response.model";
+import { Tag } from "@/models/tag";
+import { TagResponseModel } from "@/models/tag-response-model";
 
 const EntityIsNotSelected = () => {
     return (
@@ -15,11 +18,11 @@ const EntityIsNotSelected = () => {
     );
 }
 
-type SelectedEntityProps = {
+type EntityProps = {
     entity: Entity
 }
 
-const EntityOverallInfo = ({ entity }: SelectedEntityProps) => {
+const EntityOverallInfo = ({ entity }: EntityProps) => {
     const [openRenameEntityWindow, setRenameEntityWindow] = React.useState<boolean>(false);
 
     return (
@@ -43,20 +46,30 @@ const EntityOverallInfo = ({ entity }: SelectedEntityProps) => {
     );
 }
 
-const EntityTags = ({ entity }: SelectedEntityProps) => {
+type TagsProps = {
+    tagIds: string[]
+}
+
+const EntityDirectTags = ({ tags }: { tags: Tag[] }) => {
     return (
-        <div className="nue-selected-entity-tags-wrapper">
+        <>
             <div className="nue-selected-entity-tag-container-label ">
                 Tags
             </div>
             <div className="nue-selected-entity-tag-container">
-                <TagBadge color={"#FF7F50"} label={"Picture"} />
-                <TagBadge color={"#FF7F50"} label={"Bikini"} />
-                <TagBadge color={"#FF69B4"} label={"❤️ Waifu"} />
-                <TagBadge color={"#F0E68C"} label={"🎨 Art work"} />
+                {tags.map(tag => {
+                    return (<TagBadge color={"#FF7F50"} label={tag.title} />)
+                })}
+
                 <CirclePlus className="mr-2 h-4 w-4 nue-selected-entity-add-tag" />
             </div>
+        </>
+    );
+}
 
+const EntityTransitiveTags = ({ tagIds }: TagsProps) => {
+    return (
+        <>
             <div className="nue-selected-entity-tag-container-label">
                 Transitive Tags
             </div>
@@ -66,38 +79,65 @@ const EntityTags = ({ entity }: SelectedEntityProps) => {
                 <TagBadge color={"#F0E68C"} label={"Female"} />
                 <TagBadge color={"#F0E68C"} label={"Anime"} />
             </div>
+        </>
+    );
+}
+
+const EntityTags = ({ tagIds }: TagsProps) => {
+    const [state, setTags] = React.useState<Tag[]>([]);
+    const [isLoading, setIsLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        getTagsData();
+    }, []);
+
+    const getTagsData = async () => {
+        setIsLoading(true);
+
+        var tags: Array<Tag> = [];
+
+        await Promise.all(tagIds.map(async (id) => {
+            await axios.get("https://localhost:7283/GetTag?tagId=" + id).then(response => {
+                const allData: TagResponseModel = response.data;
+                tags.push(allData.value);
+            });
+        }));
+
+        setTags(tags);
+        setIsLoading(false);
+    }
+
+    if (isLoading)
+        return (<div>Loading</div>);
+
+    return (
+        <div className="nue-selected-entity-tags-wrapper">
+            <EntityDirectTags tags={state} />
+            <EntityTransitiveTags tagIds={tagIds} />
         </div>
     );
 }
 
-const SelectedEntityThumbnail = ({ entity }: SelectedEntityProps) => {
+const SelectedEntityThumbnail = ({ entity }: EntityProps) => {
     const [state, setState] = React.useState<FileThumbnailItem | null>(null);
     const [isLoading, setIsLoading] = React.useState(true);
 
     React.useEffect(() => {
         getFileThumbnail();
-    }, [entity]);
+    }, []);
 
     const getFileThumbnail = async () => {
         setIsLoading(true);
-        console.log("Re rendering");
 
         await axios.get("https://localhost:7256/GetFileThumbnail?fileId=" + entity.id).then(response => {
             setIsLoading(false);
-
             const allData: FileThumbnailItem = response.data;
-
             setState(allData);
         })
     };
 
-    if (isLoading || state === null) {
-        return (
-            <div className="nue-selected-entity-preview">
-                <img className="nue-selected-entity-image-preview" src="src/assets/cute-anime-uptxxcxl4h2zoe9r.jpg"></img>
-            </div>
-        );
-    }
+    if (isLoading || state === null)
+        return (<EntityIsNotSelected />);
 
     return (
         <div className="nue-selected-entity-preview">
@@ -106,7 +146,7 @@ const SelectedEntityThumbnail = ({ entity }: SelectedEntityProps) => {
     );
 }
 
-const EntitySpecificInfo = ({ entity }: SelectedEntityProps) => {
+const EntitySpecificInfo = ({ entity }: EntityProps) => {
     return (
         <div>
             <div className="nue-selected-entity-name-wrapper">
@@ -125,26 +165,34 @@ const EntitySpecificInfo = ({ entity }: SelectedEntityProps) => {
     );
 }
 
-const SelectedEntity = ({ entity }: SelectedEntityProps) => {
+const SelectedEntityTab = ({ entity }: { entity: Entity }) => {
+    const [state, setState] = React.useState<EntityResponseModel | null>(null);
+    const [isLoading, setIsLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        getEntityInfo();
+    }, [entity]);
+
+    const getEntityInfo = async () => {
+        setIsLoading(true);
+        await axios.get("https://localhost:7283/GetEntity?entityId=" + entity.id).then(response => {
+            const allData: EntityResponseModel = response.data;
+            setState(allData);
+            setIsLoading(false);
+        })
+    };
+
+    if (isLoading || state === null)
+        return (<EntityIsNotSelected />);
+
     return (
         <div className="nue-selected-entity-base">
-            <SelectedEntityThumbnail entity={entity} />
-            <EntityOverallInfo entity={entity} />
-            <EntityTags entity={entity} />
-            <EntitySpecificInfo entity={entity} />
+            <SelectedEntityThumbnail entity={state.value} />
+            <EntityOverallInfo entity={state.value} />
+            <EntityTags tagIds={state.tagIds} />
+            <EntitySpecificInfo entity={state.value} />
         </div>
     );
-}
-
-type EntityInformationProps = {
-    entity: Entity | null
-}
-
-const SelectedEntityTab = ({ entity }: EntityInformationProps) => {
-    if (entity === null)
-        return (<EntityIsNotSelected />);
-    else
-        return (<SelectedEntity entity={entity}></SelectedEntity>)
 }
 
 export default SelectedEntityTab;

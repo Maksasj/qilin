@@ -57,9 +57,6 @@ const TagGraphExplorer = () => {
         );
     }
 
-    console.log(relations);
-
-
     let queue: Array<any> = [];
 
     relations?.relations.forEach(relation => {
