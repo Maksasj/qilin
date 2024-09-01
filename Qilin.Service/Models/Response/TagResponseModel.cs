@@ -4,6 +4,6 @@
     {
         public Tag Value { get; set; }
 
-        public TagResponseModel[] ParentTags { get; set; }
+        public Guid[] ParentTagIds { get; set; }
     }
 }

@@ -49,7 +49,7 @@ namespace Qilin.Service.Services.Hoo
             await foreach (var file in _hooClient.GetFilesAsync())
             {
                 if (_entityRepository.HasEntity(file.Id))
-                    return;
+                    continue;
 
                 await _entityRepository.CreateEntityAsync(new Entity
                 {

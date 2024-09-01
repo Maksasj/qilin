@@ -51,7 +51,7 @@ namespace Qilin.Service.Controllers
             return Ok(new TagResponseModel
             {
                 Value = tag,
-                ParentTags = Array.Empty<TagResponseModel>()
+                ParentTagIds = Array.Empty<Guid>()
             });
         }
 

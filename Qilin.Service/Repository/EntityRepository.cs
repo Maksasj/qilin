@@ -65,7 +65,7 @@ namespace Qilin.Service.Repository
             _context.Entities.RemoveRange(entity);
 
             var saveResult = await _context.SaveChangesAsync();
-            return !(saveResult == 1);
+            return saveResult != 0;
         }
     }
 }
