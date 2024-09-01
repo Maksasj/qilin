@@ -19,6 +19,47 @@
     margin-bottom: 2em;
 }
 
+.nue-selected-entity-tag-container-label {
+    font-weight: bold;
+}
+
+.nue-selected-entity-name-wrapper {}
+
+.nue-selected-entity-name {
+    word-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+}
+
+.nue-selected-entity-change-name {
+    float: right;
+}
+
+.nue-selected-entity-type {
+    font-size: 0.75em;
+    word-wrap: break-word;
+    max-width: 100%;
+    color: hsl(var(--muted-foreground));
+    padding: 0px;
+}
+
+.nue-selected-entity-overall-date-container {
+    padding-top: 1em;
+    padding-bottom: 1em;
+
+    font-size: 0.75em;
+    word-wrap: break-word;
+    max-width: 100%;
+    color: hsl(var(--muted-foreground));
+}
+
+.nue-selected-entity-add-tag {
+    margin-top: 0.3em;
+    margin-right: 0.3em;
+}
+
 .nue-selected-entity-tag-container {
     display: flex;
     flex-wrap: wrap;

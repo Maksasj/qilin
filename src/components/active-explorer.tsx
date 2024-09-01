@@ -1,5 +1,5 @@
-import TagExplorer from "./tags/nue-tag-explorer";
-import EntitiesExplorer from "./entities/nue-entity-explorer";
+import TagExplorer from "./tags/tag-explorer";
+import EntitiesExplorer from "./entities/entity-explorer";
 import MochiLogsExplorer from "./mochi/mochi-logs-explorer";
 import TagGraphExplorer from "./tags/tag-graph-explorer";
 

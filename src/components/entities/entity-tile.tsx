@@ -2,6 +2,7 @@ import { FileThumbnailItem } from "@/models/file-thumbnail-item";
 import { Entity } from "../../models/entity";
 import React from "react";
 import axios from "axios";
+import './entity-tile.css';
 
 type Props = {
     entity: Entity

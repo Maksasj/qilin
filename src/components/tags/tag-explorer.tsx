@@ -39,7 +39,6 @@ const TagExplorer = () => {
                                 <TagTile tag={tag} />
                             ))}
                         </div>
-
                         <PaginationDemo />
                     </NueContent>
                 </ResizablePanel>

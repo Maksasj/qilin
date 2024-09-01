@@ -3,8 +3,11 @@ import TagBadge from "../tags/tag-badge";
 import { FileThumbnailItem } from "@/models/file-thumbnail-item";
 import React from "react";
 import axios from "axios";
+import { format } from 'date-fns';
 
 import './selected-entity-tab.css'
+import { CirclePlus, Pen } from "lucide-react";
+import { RenameEntityWindow } from "./rename-entity-window";
 
 const EntityIsNotSelected = () => {
     return (
@@ -17,10 +20,24 @@ type SelectedEntityProps = {
 }
 
 const EntityOverallInfo = ({ entity }: SelectedEntityProps) => {
+    const [openRenameEntityWindow, setRenameEntityWindow] = React.useState<boolean>(false);
+
     return (
         <div>
-            <div className="nue-tile-entity-name">{entity.name}</div>
-            <div className="nue-tile-entity-type">{entity.type}</div>
+            <div className="nue-selected-entity-name-wrapper">
+                <Pen onClick={() => { if (openRenameEntityWindow == false) setRenameEntityWindow(true) }} className="mr-2 h-4 w-4 nue-selected-entity-change-name" />
+                <RenameEntityWindow entity={entity} open={openRenameEntityWindow} setOpen={setRenameEntityWindow} />
+                <div className="nue-selected-entity-name">
+                    {entity.name}
+                </div>
+            </div>
+
+            <div className="nue-selected-entity-type">Type: {entity.type}</div>
+
+            <div className="nue-selected-entity-overall-date-container">
+                <div>Added to Database: {format(new Date(entity.addedToDbDate), 'yyyy-MM-dd HH:mm')}</div>
+                <div>Last modification: {format(new Date(entity.lastModificationDate), 'yyyy-MM-dd HH:mm')}</div>
+            </div>
         </div>
     );
 }
@@ -28,16 +45,25 @@ const EntityOverallInfo = ({ entity }: SelectedEntityProps) => {
 const EntityTags = ({ entity }: SelectedEntityProps) => {
     return (
         <div className="nue-selected-entity-tag-wrapper">
-            Tags
+            <div className="nue-selected-entity-tag-container-label ">
+                Tags
+            </div>
             <div className="nue-selected-entity-tag-container">
-                <TagBadge color={"#FFDEAD"} label={"📁 File"} />
-                <TagBadge color={"tomato"} label={"Some tag"} />
-                <TagBadge color={"blue"} label={"One piece"} />
-                <TagBadge color={"#6495ED"} label={"A"} />
-                <TagBadge color={"#FF7F50"} label={"Web file"} />
-                <TagBadge color={"#FF69B4"} label={"❤️ Cute"} />
+                <TagBadge color={"#FF7F50"} label={"Picture"} />
+                <TagBadge color={"#FF7F50"} label={"Bikini"} />
+                <TagBadge color={"#FF69B4"} label={"❤️ Waifu"} />
                 <TagBadge color={"#F0E68C"} label={"🎨 Art work"} />
-                <TagBadge color={"#20B2AA"} label={"nice"} />
+                <CirclePlus className="mr-2 h-4 w-4 nue-selected-entity-add-tag" />
+            </div>
+
+            <div className="nue-selected-entity-tag-container-label">
+                Transitive Tags
+            </div>
+
+            <div className="nue-selected-entity-tag-container">
+                <TagBadge color={"#FF69B4"} label={"❤️ Cute"} />
+                <TagBadge color={"#F0E68C"} label={"Female"} />
+                <TagBadge color={"#F0E68C"} label={"Anime"} />
             </div>
         </div>
     );

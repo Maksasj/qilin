@@ -1,0 +1,12 @@
+.nue-tag-badge {
+    color: black;
+    font-weight: bold;
+
+    border-radius: 15px;
+
+    padding-right: 1em;
+    padding-left: 1em;
+
+    margin-top: 0.3em;
+    margin-right: 0.3em;
+}

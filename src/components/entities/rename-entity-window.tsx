@@ -11,38 +11,31 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "../ui/textarea"
 import axios from "axios"
+import { Entity } from "@/models/entity"
 
 interface Props {
+	entity: Entity
 	open: boolean
 	setOpen: (arg: boolean) => void
 }
 
-export function CreateTagWindow(props: Props) {
+export function RenameEntityWindow(props: Props) {
 	return (
 		<Dialog open={props.open} onOpenChange={props.setOpen}>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
-					<DialogTitle>Create Tag</DialogTitle>
-					<DialogDescription>
-						Create a new tag
-					</DialogDescription>
+					<DialogTitle>Rename entity</DialogTitle>
 				</DialogHeader>
 				<div className="grid gap-4 py-4">
 					<div className="grid grid-cols-4 items-center gap-4">
 						<Label htmlFor="name" className="text-right">
-							Tag Title
+							Entity name
 						</Label>
 						<Input
 							id="name"
-							defaultValue="New Tag"
+							defaultValue={props.entity.name}
 							className="col-span-3"
 						/>
-					</div>
-					<div className="grid grid-cols-4 items-center gap-4">
-						<Label htmlFor="username" className="text-right">
-							Tag Description
-						</Label>
-						<Textarea className="nue-create-tag-window-textarea" />
 					</div>
 				</div>
 				<DialogFooter>
@@ -60,7 +53,7 @@ export function CreateTagWindow(props: Props) {
 						})
 
 						props.setOpen(false);
-					}}>Create Tag</Button>
+					}}>Rename</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>

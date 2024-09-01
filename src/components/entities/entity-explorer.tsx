@@ -8,7 +8,7 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '../ui/resi
 import { NueContent } from '../nue-content';
 import { PaginationDemo } from '@/Pagination';
 import SelectedEntityTab from './selected-entity-tab';
-import './nue-entity-explorer.css';
+import './entity-explorer.css';
 import { Entity } from '@/models/entity';
 
 const EntitiesExplorer = () => {

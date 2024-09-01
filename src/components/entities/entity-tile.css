@@ -1,0 +1,67 @@
+.nue-tile-base {
+    flex-direction: column;
+
+    border: 1px solid;
+    border-radius: 8px;
+    border-color: hsl(var(--muted));
+
+    background-color: hsl(var(--background));
+
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    width: 12em;
+    height: 12em;
+}
+
+.nue-tile-header {
+    width: 100%;
+    height: 3em;
+    padding: 0em 0.5em 0em 0.5em;
+}
+
+.nue-tile-entity-name {
+    word-wrap: break-word;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+}
+
+.nue-tile-entity-type {
+    font-size: 0.75em;
+    word-wrap: break-word;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: hsl(var(--muted-foreground));
+    padding: 0px;
+}
+
+.nue-tile-base:hover {
+    background-color: hsl(var(--muted));
+}
+
+.nue-tile-preview-container {
+    width: 100%;
+    height: 9em;
+    border-radius: 0px 0px 8px 8px;
+    clip-path: inset(0);
+    /* this will hide the overflow */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nue-tile-preview-image {
+    width: 100%;
+    border-radius: 0px 0px 8px 8px;
+    clip: inherit;
+}
+
+.nue-tile-preview-image:hover {
+    background-color: hsl(var(--muted));
+    opacity: .5;
+}

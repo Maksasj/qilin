@@ -32,13 +32,14 @@ export function AddWebFileWindow(props: Props) {
             </Label>
             <Input
               id="name"
-              defaultValue="New Tag"
               className="col-span-3"
             />
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Create Tag</Button>
+          <Button onClick={() => {
+            props.setOpen(false);
+          }} type="submit">Add new web file</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
