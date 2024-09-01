@@ -13,5 +13,11 @@ namespace Qilin.Service.Models
         public string Type { get; set; }
 
         public string Name { get; set; }
+
+        [Required]
+        public DateTimeOffset AddedToDbDate { get; set; }
+
+        [Required]
+        public DateTimeOffset LastModificationDate { get; set; }
     }
 }

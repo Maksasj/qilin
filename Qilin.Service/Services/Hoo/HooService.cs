@@ -33,6 +33,8 @@ namespace Qilin.Service.Services.Hoo
                     Id = file.Id,
                     Type = "HooFile",
                     Name = file.Name,
+                    AddedToDbDate = DateTimeOffset.Now,
+                    LastModificationDate = DateTimeOffset.Now
                 });
             }
         }
