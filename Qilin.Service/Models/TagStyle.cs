@@ -3,11 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Qilin.Service.Models
 {
-    [PrimaryKey(nameof(TagId))]
+    [PrimaryKey(nameof(Id))]
     public class TagStyle
     {
         [Required]
-        public Guid TagId { get; set; }
+        public Guid Id { get; set; }
+
+        [Required]
+        public string StyleTitle { get; set; }
 
         [Required]
         public string Color { get; set; }

@@ -42,15 +42,21 @@ namespace Qilin.Service.Controllers
         public async Task<IActionResult> GetTag(Guid tagId)
         {
             var tag = await _qilinService.GetTagAsync(tagId);
-
             if (tag == null)
             {
                 return BadRequest($@"Tag with id {tagId}, does not exist");
             }
 
+            var style = await _qilinService.GetTagStyleAsync(tag);
+            if (style == null)
+            {
+                return BadRequest($@"Failed to get style for {tagId}");
+            }
+
             return Ok(new TagResponseModel
             {
                 Value = tag,
+                Style = style,
                 ParentTagIds = Array.Empty<Guid>()
             });
         }

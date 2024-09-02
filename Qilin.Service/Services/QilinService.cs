@@ -11,13 +11,21 @@ namespace Qilin.Service.Services
         private readonly ITagRepository _tagRepository;
         private readonly IEntityRepository _entityRepository;
         private readonly IRelationRepository _relationRepository;
+        private readonly ITagStyleRepository _tagStyleRepository;
 
-        public QilinService(ILogger<QilinService> logger, ITagRepository tagRepository, IEntityRepository entityRepository, IRelationRepository relationRepository)
+        public QilinService(
+            ILogger<QilinService> logger, 
+            ITagRepository tagRepository, 
+            IEntityRepository entityRepository, 
+            IRelationRepository relationRepository,
+            ITagStyleRepository tagStyleRepository
+            )
         {
             _logger = logger;
             _tagRepository = tagRepository;
             _entityRepository = entityRepository;
             _relationRepository = relationRepository;
+            _tagStyleRepository = tagStyleRepository;
         }
 
         public IEnumerable<Tag> GetTags()
@@ -89,6 +97,11 @@ namespace Qilin.Service.Services
             return _tagRepository
                 .GetTags()
                 .Where(tag => relations.Contains(tag.Id));
+        }
+
+        public async Task<TagStyle> GetTagStyleAsync(Tag tag)
+        {
+            return await _tagStyleRepository.GetTagStyleAsync(tag);
         }
     }
 }

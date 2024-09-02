@@ -35,6 +35,7 @@ builder.Services.AddDbContext<QilinDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<ITagRepository, TagRepository>();
+builder.Services.AddScoped<ITagStyleRepository, TagStyleRepository>();
 builder.Services.AddScoped<IEntityRepository, EntityRepository>();
 builder.Services.AddScoped<IRelationRepository, RelationRepository>();
 

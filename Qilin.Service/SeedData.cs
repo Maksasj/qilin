@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Qilin.Service.Models;
 using Qilin.Service.Repository;
 using Qilin.Service.Services;
+using System.ComponentModel.DataAnnotations;
 
 namespace Qilin.Service
 {
@@ -15,12 +16,28 @@ namespace Qilin.Service
 
             var tagRepository = services.GetRequiredService<ITagRepository>();
             var relationRepository = services.GetRequiredService<IRelationRepository>();
+            var tagStyleRepository = services.GetRequiredService<ITagStyleRepository>();
 
+            await EnsureDefaultTagStyles(logger, tagStyleRepository);
             await EnsureGenericTagsAsync(logger, tagRepository);
+
             await EnsureHooTagsAsync(logger, tagRepository);
             await EnsureHooSourceTagsAsync(logger, tagRepository);
-
             await EnsureHooTagRelationsAsync(logger, tagRepository, relationRepository);
+        }
+
+        private static async Task EnsureDefaultTagStyles(ILogger logger, ITagStyleRepository tagStyleRepository)
+        {
+            if ((await tagStyleRepository.GetStyleAsync("Default")) == null)
+            {
+                await tagStyleRepository.CreateStyleAsync(new TagStyle
+                {
+                    Id = Guid.NewGuid(),
+                    StyleTitle = "Default",
+                    Color = "#969696",
+                    Emoji = "",
+                });
+            }
         }
 
         private static async Task EnsureGenericTagsAsync(ILogger logger, ITagRepository tagRepository)

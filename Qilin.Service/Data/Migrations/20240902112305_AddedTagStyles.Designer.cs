@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Qilin.Service.Data;
 
@@ -10,9 +11,11 @@ using Qilin.Service.Data;
 namespace Qilin.Service.Migrations
 {
     [DbContext(typeof(QilinDbContext))]
-    partial class QilinDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240902112305_AddedTagStyles")]
+    partial class AddedTagStyles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
@@ -109,7 +112,7 @@ namespace Qilin.Service.Migrations
 
             modelBuilder.Entity("Qilin.Service.Models.TagStyle", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("StyleId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
@@ -125,7 +128,7 @@ namespace Qilin.Service.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("StyleId");
 
                     b.ToTable("TagStyles");
                 });
@@ -133,13 +136,12 @@ namespace Qilin.Service.Migrations
             modelBuilder.Entity("Qilin.Service.Models.TagStyleRelation", b =>
                 {
                     b.Property<Guid>("TagId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("StyleId")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("TagId");
+                    b.HasKey("TagId", "StyleId");
 
                     b.ToTable("TagStyleRelations");
                 });
