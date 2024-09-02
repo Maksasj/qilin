@@ -61,5 +61,19 @@ namespace Qilin.Service.Repository
         {
             return _context.Tags;
         }
+
+        public IEnumerable<Tag> SearchTags(string searchTitle)
+        {
+            return _context.Tags
+                .Select(t => new TagMatchModel
+                {
+                    Tag = t,
+                    TitleMatchScore = EF.Functions.Like(t.Title.ToLower(), $"%{searchTitle}%") ? 1 : 0,
+                })
+                .Where(t => t.TitleMatchScore > 0)
+                .OrderByDescending(t => t.TitleMatchScore)
+                .ThenBy(t => t.Tag.Title)
+                .Select(t => t.Tag);
+        }
     }
 }

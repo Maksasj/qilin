@@ -15,5 +15,7 @@ namespace Qilin.Service.Repository
         Task<bool> DeleteTagAsync(Guid tagId);
 
         bool HasTag(Guid tagId);
+
+        IEnumerable<Tag> SearchTags(string searchTitle);
     }
 }

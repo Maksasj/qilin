@@ -33,6 +33,12 @@ namespace Qilin.Service.Services
             return _tagRepository.GetTags();
         }
 
+        public IEnumerable<Tag> SearchTags(string searchTitle)
+        {
+            return _tagRepository.SearchTags(searchTitle);
+        }
+
+
         public async Task<Tag> GetTagAsync(Guid tagId)
         {
             return await _tagRepository.GetTagAsync(tagId);

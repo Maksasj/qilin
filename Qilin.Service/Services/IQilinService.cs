@@ -9,6 +9,8 @@ namespace Qilin.Service.Services
         Task<Entity> GetEntityAsync(Guid entityId);
 
         IEnumerable<Tag> GetTags();
+        IEnumerable<Tag> SearchTags(string searchTitle);
+
         Task<Tag> GetTagAsync(Guid tagId);
         Task<bool> CreateTag(string tagTitle, string? tagDescription);
         Task<bool> DeleteTag(Guid tagId);

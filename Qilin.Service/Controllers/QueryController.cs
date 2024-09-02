@@ -2,44 +2,49 @@
 using Microsoft.EntityFrameworkCore;
 using Qilin.Service.Data;
 using Qilin.Service.Models;
+using Qilin.Service.Models.Response;
+using Qilin.Service.Services;
 
 namespace Qilin.Service.Controllers
 {
     [ApiController]
     public class QueryController : Controller
     {
-        private QilinDbContext _context;
+        private readonly IQilinService _qilinService;
 
-        public QueryController(QilinDbContext context)
+        public QueryController(IQilinService qilinService)
         {
-            _context = context;
+            _qilinService = qilinService;
         }
 
-        class TagMatch
-        {
-            public Tag Tag { get; set; }
-            public int TitleMatchScore { get; set; }
-        }
+
 
         [HttpGet]
         [Route("SearchTag")]
-        public async Task<List<Tag>> SearchTag(string searchTitle)
+        public async Task<TagsPageResponseModel> SearchTag(string searchTitle, int maxCount = 100)
         {
             var lowerCase = searchTitle.ToLower();
 
-            var query = _context.Tags
-                .Select(t => new TagMatch
+            // Get tags
+            var tags = _qilinService
+                .SearchTags(lowerCase)
+                .Take(maxCount)
+                .Select(tag => new TagResponseModel
                 {
-                    Tag = t,
-                    TitleMatchScore = EF.Functions.Like(t.Title.ToLower(), $"%{lowerCase}%") ? 1 : 0,
-                })
-                .Where(t => t.TitleMatchScore > 0)
-                .OrderByDescending(t => t.TitleMatchScore)
-                .ThenBy(t => t.Tag.Title)
-                .Select(t => t.Tag)
-                .ToList();
+                    Value = tag,
+                    ParentTagIds = Array.Empty<Guid>()
+                }).ToArray();
 
-            return query;
+            // Get styles
+            foreach (var tag in tags)
+                tag.Style = await _qilinService.GetTagStyleAsync(tag.Value);
+
+            return new TagsPageResponseModel
+            {
+                PageIndex = 0,
+                ItemCount = tags.Length,
+                Tags = tags,
+            };
         }
     }
 }
