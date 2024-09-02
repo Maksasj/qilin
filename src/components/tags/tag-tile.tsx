@@ -1,6 +1,7 @@
 import { Tag } from "@/models/tag";
+import { TagStyle } from "@/models/tag-style";
 
-const TagTile = ({ tag }: { tag: Tag }) => {
+const TagTile = ({ tag, style }: { tag: Tag, style: TagStyle }) => {
     return (
         <div className={`nue-tile-base`}>
             <div className="nue-tile-header">

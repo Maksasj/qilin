@@ -36,7 +36,7 @@ const TagExplorer = () => {
                     <NueContent>
                         <div className="nue-entity-explorer">
                             {state.tags.map(tag => (
-                                <TagTile tag={tag} />
+                                <TagTile tag={tag.value} style={tag.style} />
                             ))}
                         </div>
                         <PaginationDemo />

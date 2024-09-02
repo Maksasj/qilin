@@ -1,7 +1,7 @@
-import { Tag } from "./tag";
+import { TagResponseModel } from "./tag-response-model";
 
 export type TagsPageResponseModel = {
     pageIndex: number;
     itemCount: number;
-    tags: Tag[];
+    tags: TagResponseModel[];
 };

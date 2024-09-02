@@ -1,7 +1,6 @@
-import { Circle, CircleX } from 'lucide-react';
-import './tag-badge.css'
-import { Tag } from '@/models/tag';
+import { CircleX } from 'lucide-react';
 import { TagResponseModel } from '@/models/tag-response-model';
+import './tag-badge.css'
 
 const TagBadge = ({ tag }: { tag: TagResponseModel }) => {
 	return (

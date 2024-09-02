@@ -7,6 +7,8 @@ import './top-bar.css'
 import React from "react";
 import { PopoverAnchor } from "@radix-ui/react-popover";
 import { CommandInput } from "./ui/command";
+import { Tag } from "@/models/tag";
+import axios from "axios";
 
 const Logo = () => {
 	return (
@@ -19,6 +21,23 @@ const Logo = () => {
 const SearchInput = () => {
 	const [tmp, setTmp] = React.useState<string>("");
 	const [autoComplete, setAutoComplete] = React.useState<boolean>(true);
+
+	const [state, setState] = React.useState<Tag[]>([]);
+	const [isLoading, setIsLoading] = React.useState(true);
+
+	React.useEffect(() => {
+		getAllInformation()
+	}, [tmp]);
+
+	const getAllInformation = async () => {
+		setIsLoading(true);
+
+		await axios.get("https://localhost:7283/SearchTag?searchTitle=" + tmp).then(response => {
+			setIsLoading(false);
+			const allData: Tag[] = response.data;
+			setState(allData);
+		})
+	};
 
 	return (
 		<div className="nue-search">
