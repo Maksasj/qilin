@@ -33,7 +33,7 @@ const SearchInput = () => {
 				placeholder="Type a tag or search by multiple..." />
 
 			<div className="nue-search-auto-complete-base">
-
+				{tmp}
 			</div>
 
 			<Button variant="outline">Search</Button>

@@ -46,11 +46,8 @@ const EntityOverallInfo = ({ entity }: EntityProps) => {
     );
 }
 
-type TagsProps = {
-    tagIds: string[]
-}
 
-const EntityDirectTags = ({ tags }: { tags: Tag[] }) => {
+const EntityDirectTags = ({ tags }: { tags: TagResponseModel[] }) => {
     return (
         <>
             <div className="nue-selected-entity-tag-container-label ">
@@ -58,7 +55,7 @@ const EntityDirectTags = ({ tags }: { tags: Tag[] }) => {
             </div>
             <div className="nue-selected-entity-tag-container">
                 {tags.map(tag => {
-                    return (<TagBadge color={"#FF7F50"} label={tag.title} />)
+                    return (<TagBadge tag={tag} />)
                 })}
 
                 <CirclePlus className="mr-2 h-4 w-4 nue-selected-entity-add-tag" />
@@ -67,7 +64,7 @@ const EntityDirectTags = ({ tags }: { tags: Tag[] }) => {
     );
 }
 
-const EntityTransitiveTags = ({ tagIds }: TagsProps) => {
+const EntityTransitiveTags = ({ tags }: { tags: TagResponseModel[] }) => {
     return (
         <>
             <div className="nue-selected-entity-tag-container-label">
@@ -75,16 +72,14 @@ const EntityTransitiveTags = ({ tagIds }: TagsProps) => {
             </div>
 
             <div className="nue-selected-entity-tag-container">
-                <TagBadge color={"#FF69B4"} label={"❤️ Cute"} />
-                <TagBadge color={"#F0E68C"} label={"Female"} />
-                <TagBadge color={"#F0E68C"} label={"Anime"} />
+
             </div>
         </>
     );
 }
 
-const EntityTags = ({ tagIds }: TagsProps) => {
-    const [state, setTags] = React.useState<Tag[]>([]);
+const EntityTags = ({ tagIds }: { tagIds: string[] }) => {
+    const [state, setTags] = React.useState<TagResponseModel[]>([]);
     const [isLoading, setIsLoading] = React.useState(true);
 
     React.useEffect(() => {
@@ -94,12 +89,12 @@ const EntityTags = ({ tagIds }: TagsProps) => {
     const getTagsData = async () => {
         setIsLoading(true);
 
-        var tags: Array<Tag> = [];
+        var tags: Array<TagResponseModel> = [];
 
         await Promise.all(tagIds.map(async (id) => {
             await axios.get("https://localhost:7283/GetTag?tagId=" + id).then(response => {
                 const allData: TagResponseModel = response.data;
-                tags.push(allData.value);
+                tags.push(allData);
             });
         }));
 
@@ -113,7 +108,7 @@ const EntityTags = ({ tagIds }: TagsProps) => {
     return (
         <div className="nue-selected-entity-tags-wrapper">
             <EntityDirectTags tags={state} />
-            <EntityTransitiveTags tagIds={tagIds} />
+            <EntityTransitiveTags tags={state} />
         </div>
     );
 }
