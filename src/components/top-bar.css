@@ -47,3 +47,34 @@
     position: absolute;
     z-index: 999;
 }
+
+.nue-search-auto-complete-base-label {
+    font-weight: bold;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.nue-search-auto-complete-result {
+    display: flex;
+
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    width: 100%;
+}
+
+.nue-search-auto-complete-result-description {
+    padding-top: 0.3em;
+    align-items: center;
+    color: hsl(var(--muted-foreground));
+
+    word-wrap: break-word;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nue-search-auto-complete-result-button {
+    padding-top: 0.3em;
+    text-align: right;
+}

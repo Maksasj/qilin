@@ -8,6 +8,9 @@
     margin-right: 0.3em;
 
     display: flex;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .nue-tag-badge-name {
