@@ -6,6 +6,6 @@
 
         public int ItemCount { get; set; }
 
-        public Tag[] Tags { get; set; }
+        public TagResponseModel[] Tags { get; set; }
     }
 }

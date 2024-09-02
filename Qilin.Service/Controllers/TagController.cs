@@ -27,8 +27,15 @@ namespace Qilin.Service.Controllers
             var tags = _qilinService.GetTags()
                 .Skip(pageIndex * itemsPerPage)
                 .Take(itemsPerPage)
-                .ToArray();
-            
+                .Select(tag => new TagResponseModel
+                {
+                    Value = tag,
+                    ParentTagIds = Array.Empty<Guid>()
+                }).ToArray();
+
+            foreach (var tag in tags)
+                tag.Style = await _qilinService.GetTagStyleAsync(tag.Value);
+
             return new TagsPageResponseModel
             {
                 PageIndex = pageIndex,
