@@ -1,8 +1,10 @@
+using NUnit.Framework;
+
 namespace Qilin.IntegrationTests;
 
 public class UnitTest1
 {
-    [Fact]
+    [Test]
     public void Test1()
     {
 

@@ -9,4 +9,10 @@ public class EntityRepositoryTests
     {
 
     }
+
+    [Test]
+    public void Test1()
+    {
+
+    }
 }

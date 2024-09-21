@@ -9,4 +9,10 @@ public class TagStyleRepositoryTests
     {
 
     }
+
+    [Test]
+    public void Test1()
+    {
+
+    }
 }
