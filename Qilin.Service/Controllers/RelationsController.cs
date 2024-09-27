@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Qilin.Service.Models;
 using Qilin.Service.Models.Response;
 using Qilin.Service.Services;
@@ -6,7 +7,7 @@ using Qilin.Service.Services;
 namespace Qilin.Service.Controllers
 {
     [ApiController]
-    public class RelationsController : ControllerBase
+    public class RelationsController
     {
         private readonly IQilinService _qilinService;
         private readonly ILogger<RelationsController> _logger;
@@ -19,14 +20,14 @@ namespace Qilin.Service.Controllers
 
         [HttpGet]
         [Route("GetTagRelations")]
-        public async Task<TagRelationsResponseModel> GetTagRelations()
+        public async Task<IActionResult> GetTagRelations()
         {
             var relations = _qilinService.GetTagRelations();
 
-            return new TagRelationsResponseModel
+            return new OkObjectResult(new TagRelationsResponseModel
             {
                 Relations = relations.ToArray()
-            };
+            });
         }
 
         [HttpPost]
@@ -37,10 +38,10 @@ namespace Qilin.Service.Controllers
 
             if (relations == null)
             {
-                return BadRequest(@"Failed to tag {targetTagId} with {toBeAppliedTagId} tag");
+                return new BadRequestObjectResult(@"Failed to tag {targetTagId} with {toBeAppliedTagId} tag");
             }
 
-            return Ok();
+            return new OkResult();
         }
     }
 }

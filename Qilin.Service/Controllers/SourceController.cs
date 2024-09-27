@@ -5,7 +5,7 @@ using Qilin.Service.Services.Hoo;
 namespace Qilin.Service.Controllers
 {
     [ApiController]
-    public class SourceController : ControllerBase
+    public class SourceController
     {
         private readonly IHooService _hooService;
         private readonly ILogger<SourceController> _logger;
@@ -22,7 +22,7 @@ namespace Qilin.Service.Controllers
         {
             await _hooService.SyncAsync();
 
-            return Ok();
+            return new OkResult();
         }
 
         [HttpDelete]
@@ -31,7 +31,7 @@ namespace Qilin.Service.Controllers
         {
             await _hooService.ClearCacheAsync();
 
-            return Ok();
+            return new OkResult();
         }
     }
 }

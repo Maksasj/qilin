@@ -8,7 +8,7 @@ using Qilin.Service.Services;
 namespace Qilin.Service.Controllers
 {
     [ApiController]
-    public class QueryController : Controller
+    public class QueryController
     {
         private readonly IQilinService _qilinService;
 
@@ -17,11 +17,9 @@ namespace Qilin.Service.Controllers
             _qilinService = qilinService;
         }
 
-
-
         [HttpGet]
         [Route("SearchTag")]
-        public async Task<TagsPageResponseModel> SearchTag(string searchTitle, int maxCount = 100)
+        public async Task<IActionResult> SearchTag(string searchTitle, int maxCount = 100)
         {
             var lowerCase = searchTitle.ToLower();
 
@@ -39,12 +37,12 @@ namespace Qilin.Service.Controllers
             foreach (var tag in tags)
                 tag.Style = await _qilinService.GetTagStyleAsync(tag.Value);
 
-            return new TagsPageResponseModel
+            return new OkObjectResult(new TagsPageResponseModel
             {
                 PageIndex = 0,
                 ItemCount = tags.Length,
                 Tags = tags,
-            };
+            });
         }
     }
 }
