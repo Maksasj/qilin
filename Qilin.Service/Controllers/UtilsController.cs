@@ -3,13 +3,13 @@
 namespace Qilin.Service.Controllers
 {
     [ApiController]
-    public class UtilsController : Controller
+    public class UtilsController
     {
         [HttpGet]
         [Route("Ping")]
         public async Task<IActionResult> Ping()
         {
-            return Ok();
+            return new OkResult();
         }
 
         [HttpGet]
@@ -18,7 +18,7 @@ namespace Qilin.Service.Controllers
         {
             throw new NotImplementedException();
 
-            return Ok();
+            return new OkResult();
         }
     }
 }

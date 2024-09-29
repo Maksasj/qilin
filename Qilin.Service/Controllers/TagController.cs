@@ -4,12 +4,11 @@ using Qilin.Service.Common.Swagger;
 using Qilin.Service.Services;
 using Qilin.Service.Models.Response;
 using Swashbuckle.AspNetCore.Annotations;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Qilin.Service.Controllers
 {
     [ApiController]
-    public class TagController : ControllerBase
+    public class TagController
     {
         private readonly IQilinService _qilinService;        
         private readonly ILogger<TagController> _logger;
@@ -22,7 +21,7 @@ namespace Qilin.Service.Controllers
 
         [HttpGet]
         [Route("GetTags")]
-        public async Task<TagsPageResponseModel> GetTags(int pageIndex = 0, int itemsPerPage = 100)
+        public async Task<IActionResult> GetTags(int pageIndex = 0, int itemsPerPage = 100)
         {
             var tags = _qilinService.GetTags()
                 .Skip(pageIndex * itemsPerPage)
@@ -36,12 +35,12 @@ namespace Qilin.Service.Controllers
             foreach (var tag in tags)
                 tag.Style = await _qilinService.GetTagStyleAsync(tag.Value);
 
-            return new TagsPageResponseModel
+            return new OkObjectResult(new TagsPageResponseModel
             {
                 PageIndex = pageIndex,
                 ItemCount = tags.Length,
                 Tags = tags,
-            };
+            });
         }
 
         [HttpGet]
@@ -51,16 +50,16 @@ namespace Qilin.Service.Controllers
             var tag = await _qilinService.GetTagAsync(tagId);
             if (tag == null)
             {
-                return BadRequest($@"Tag with id {tagId}, does not exist");
+                return new BadRequestObjectResult($@"Tag with id {tagId}, does not exist");
             }
 
             var style = await _qilinService.GetTagStyleAsync(tag);
             if (style == null)
             {
-                return BadRequest($@"Failed to get style for {tagId}");
+                return new BadRequestObjectResult($@"Failed to get style for {tagId}");
             }
 
-            return Ok(new TagResponseModel
+            return new OkObjectResult(new TagResponseModel
             {
                 Value = tag,
                 Style = style,
@@ -85,17 +84,17 @@ namespace Qilin.Service.Controllers
         {
             if (string.IsNullOrWhiteSpace(tagTitle))
             {
-                return BadRequest();
+                return new BadRequestObjectResult("Tag title could not be empty");
             }
 
             var error = await _qilinService.CreateTag(tagTitle, tagDescription);
             
             if (error)
             {
-                return BadRequest("Could not create tag");
+                return new BadRequestObjectResult("Could not create tag");
             }
 
-            return Ok();
+            return new OkResult();
         }
 
         [HttpPatch]
@@ -122,7 +121,7 @@ namespace Qilin.Service.Controllers
 
             throw new NotImplementedException();
 
-            return Ok();
+            return new OkResult();
         }
 
         [HttpDelete]
@@ -131,17 +130,17 @@ namespace Qilin.Service.Controllers
         {
             if (tagId == Guid.Empty)
             {
-                return BadRequest();
+                return new BadRequestResult();
             }
 
             var successful = await _qilinService.DeleteTag(tagId);
 
             if (!successful)
             {
-                return BadRequest("Could not delete tag");
+                return new BadRequestObjectResult("Could not delete tag");
             }
 
-            return Ok();
+            return new OkResult();
         }
     }
 }

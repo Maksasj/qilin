@@ -9,7 +9,7 @@ using Qilin.Service.Services.Hoo;
 namespace Qilin.Service.Controllers
 {
     [ApiController]
-    public class EntityController : ControllerBase
+    public class EntityController
     {
         private readonly IQilinService _qilinService;
         private readonly IHooService _hooService;
@@ -24,19 +24,19 @@ namespace Qilin.Service.Controllers
 
         [HttpGet]
         [Route("GetEntities")]
-        public async Task<EntitiesPageResponseModel> GetEntities(int pageIndex = 0, int itemsPerPage = 100)
+        public async Task<IActionResult> GetEntities(int pageIndex = 0, int itemsPerPage = 100)
         {
             var entities = (await _qilinService.GetEntitiesAsync())
                 .Skip(pageIndex * itemsPerPage)
                 .Take(itemsPerPage)
                 .ToArray();
 
-            return new EntitiesPageResponseModel
+            return new OkObjectResult(new EntitiesPageResponseModel
             {
                 PageIndex = pageIndex,
                 ItemCount = entities.Length,
                 Entities = entities,
-            };
+            });
         }
 
         [HttpGet]
@@ -46,12 +46,12 @@ namespace Qilin.Service.Controllers
             var entity = (await _qilinService.GetEntityAsync(entityId));
 
             if (entity == null) 
-                return BadRequest($"Entity {entityId.ToString()} does not exist");
+                return new BadRequestObjectResult($"Entity {entityId.ToString()} does not exist");
 
             var tags = (await _qilinService.GetEntityTagsAsync(entityId))
                 .Select(tag => tag.Id);
 
-            return Ok(new EntityResponseModel
+            return new OkObjectResult(new EntityResponseModel
             {
                 Value = entity,
                 TagIds = tags.ToArray()
@@ -60,32 +60,16 @@ namespace Qilin.Service.Controllers
 
         [HttpGet]
         [Route("GetEntitiesCount")]
-        public async Task<long> GetEntitiesCount()
+        public async Task<IActionResult> GetEntitiesCount()
         {
-            return (await _qilinService.GetEntitiesAsync()).LongCount();
+            return new OkObjectResult((await _qilinService.GetEntitiesAsync()).LongCount());
         }
 
         [HttpPost]
         [Route("CreateEntity")]
         public async Task<IActionResult> CreateEntity()
         {
-            // throw new NotImplementedException();
-
-            /*
-            if (string.IsNullOrWhiteSpace(tagTitle))
-            {
-                return BadRequest();
-            }
-
-            var successful = await _tagService.CreateTag(tagTitle, tagDescription);
-            
-            if (!successful)
-            {
-                return BadRequest("Could not delete tag");
-            }
-            */
-
-            return Ok();
+            throw new NotImplementedException();
         }
 
         [HttpDelete]
@@ -93,22 +77,6 @@ namespace Qilin.Service.Controllers
         public async Task<IActionResult> DeleteEntity(Guid entityId)
         {
             throw new NotImplementedException();
-
-            /*
-            if (tagId == Guid.Empty)
-            {
-                return BadRequest();
-            }
-
-            var successful = await _tagService.DeleteTag(tagId);
-
-            if (!successful)
-            {
-                return BadRequest("Could not delete tag");
-            }
-            */
-
-            return Ok();
         }
     }
 }
