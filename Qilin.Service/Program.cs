@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Qilin.Service;
 using Qilin.Service.Common;
+using Qilin.Service.Common.Extensions;
 using Qilin.Service.Common.Swagger;
 using Qilin.Service.Data;
 using Qilin.Service.Repository;
@@ -31,8 +32,11 @@ builder.Services.AddSwaggerGen(options =>
     options.ParameterFilter<SwaggerParameterExampleFilter>();
 });
 
+// builder.Services.AddDbContext<QilinDbContext>(options =>
+//    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddDbContext<QilinDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<ITagStyleRepository, TagStyleRepository>();
@@ -50,11 +54,12 @@ var app = builder.Build();
 app.UseCors("AllowAllOrigins");
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+    app.ApplyMigrations();
+// }
 
 // app.UseHttpsRedirection();
 
