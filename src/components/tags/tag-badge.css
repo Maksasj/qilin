@@ -1,0 +1,41 @@
+.nue-tag-badge-base {
+    color: black;
+    font-weight: bold;
+
+    border-radius: 15px;
+
+    margin-top: 0.3em;
+    margin-right: 0.3em;
+
+    display: flex;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.nue-tag-badge-name {
+    padding-right: 1.3em;
+    padding-left: 1.3em;
+
+    transition-property: padding;
+    transition-duration: 0.5s;
+}
+
+.nue-tag-badge-remove {
+    position: absolute;
+
+    opacity: 0;
+
+    transition-property: opacity;
+    transition-duration: 0.5s;
+}
+
+.nue-tag-badge-base:hover .nue-tag-badge-remove {
+    position: absolute;
+    opacity: 1;
+}
+
+.nue-tag-badge-base:hover .nue-tag-badge-name {
+    padding-right: 0.8em;
+    padding-left: 1.8em;
+}

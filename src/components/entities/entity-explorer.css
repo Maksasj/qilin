@@ -1,0 +1,23 @@
+.nue-entity-explorer {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap: 2.5em;
+	padding-top: 1.5em;
+	padding-bottom: 1.5em;
+	padding-right: 1.5em;
+}
+
+.icon {
+	font-size: 3em;
+	margin-bottom: 8px;
+	word-wrap: break-word;
+	max-width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.nue-create-tag-window-textarea {
+	background-color: hsl(var(--background)) !important;
+	border-color: hsl(var(--muted)) !important;
+}

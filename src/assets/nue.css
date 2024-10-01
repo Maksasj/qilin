@@ -1,0 +1,20 @@
+.nue-side {
+    margin: 1em;
+    border-radius: 8px;
+    padding: 16px;
+    height: 100%;
+}
+
+.nue-content {
+    margin: 2em;
+}
+
+.nue-mochi-logs-explorer {}
+
+.nue-mochi-log-message-base {
+    padding: 1em;
+    border: 1px solid;
+    border-radius: 8px;
+    border-color: hsl(var(--muted));
+    margin: 1em;
+}

@@ -1,0 +1,80 @@
+.nue-top {
+    margin: 1em;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nue-logo {
+    font-size: 2em;
+    font-weight: bold;
+    word-wrap: break-word;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 0.5em;
+}
+
+.nue-search {
+    margin: 0 auto;
+    width: 35em;
+    display: flex;
+}
+
+.nue-search-input {
+    margin-right: 1em;
+}
+
+.nue-right {
+    float: right;
+    margin-right: 0.5em
+}
+
+.nue-search-auto-complete-base {
+    background-color: hsl(var(--background)) !important;
+
+    border: 1px solid;
+    border-radius: 8px;
+    border-color: hsl(var(--muted));
+
+    padding: 1em;
+
+    transform: translate(0, 3em);
+    width: 35em;
+
+    position: absolute;
+    z-index: 999;
+}
+
+.nue-search-auto-complete-base-label {
+    font-weight: bold;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.nue-search-auto-complete-result {
+    display: flex;
+
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    width: 100%;
+}
+
+.nue-search-auto-complete-result-description {
+    padding-top: 0.3em;
+    align-items: center;
+    color: hsl(var(--muted-foreground));
+
+    word-wrap: break-word;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nue-search-auto-complete-result-button {
+    padding-top: 0.3em;
+    text-align: right;
+}
