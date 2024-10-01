@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "master", "dev" ]
 
+defaults:
+  run:
+    working-directory: ./backend
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,23 +21,14 @@ jobs:
       with:
         dotnet-version: 8.0.303
 
-    - name: Navigate to backend directory
-      run: 
-
     - name: Restore dependencies
-      run: |
-        cd backend
-        dotnet restore   
+      run: dotnet restore   
 
     - name: Build
-      run: |
-      cd backend
-      dotnet build --no-restore
+      run: dotnet build --no-restore
 
     - name: Test
-      run: |
-      cd backend
-      dotnet test  -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover --no-build --verbosity normal Qilin.UnitTests/
+      run: dotnet test  -p:CollectCoverage=true -p:CoverletOutput=TestResults/ -p:CoverletOutputFormat=opencover --no-build --verbosity normal Qilin.UnitTests/
       
     - name: Create Test Coverage Badge
       uses: simon-k/dotnet-code-coverage-badge@v1.0.0
@@ -41,7 +36,7 @@ jobs:
       with:
         label: Unit Test Coverage
         color: blue
-        path: backend/Qilin.UnitTests/TestResults/coverage.opencover.xml
+        path: Qilin.UnitTests/TestResults/coverage.opencover.xml
         gist-filename: qilin-code-coverage.json
         gist-id: b727dbd67b0f2f25be22546948e9053b
         gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }}       
