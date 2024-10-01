@@ -17,6 +17,9 @@ jobs:
       with:
         dotnet-version: 8.0.303
 
+    - name: Navigate to backend directory
+      run: cd backend
+
     - name: Restore dependencies
       run: dotnet restore   
 
