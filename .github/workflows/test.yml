@@ -36,7 +36,7 @@ jobs:
       with:
         label: Unit Test Coverage
         color: blue
-        path: Qilin.UnitTests/TestResults/coverage.opencover.xml
+        path: backend/Qilin.UnitTests/TestResults/coverage.opencover.xml
         gist-filename: qilin-code-coverage.json
         gist-id: b727dbd67b0f2f25be22546948e9053b
         gist-auth-token: ${{ secrets.GIST_AUTH_TOKEN }}       
