@@ -33,7 +33,7 @@
     "react-force-graph": "^1.44.5",
     "react-resizable-panels": "^2.1.4",
     "sonner": "^1.5.0",
-    "tailwind-merge": "^2.5.2",
+    "tailwind-merge": "^2.5.3",
     "tailwindcss-animate": "^1.0.7",
     "three-spritetext": "^1.8.2"
   },
