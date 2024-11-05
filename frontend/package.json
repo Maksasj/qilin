@@ -32,7 +32,7 @@
     "react-dom": "^18.3.1",
     "react-force-graph": "^1.44.6",
     "react-resizable-panels": "^2.1.6",
-    "sonner": "^1.5.0",
+    "sonner": "^1.7.0",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "three-spritetext": "^1.9.0"
